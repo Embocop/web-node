@@ -1,0 +1,30 @@
+{
+  "name": "web-node",
+  "version": "0.1.0",
+  "description": "The Node.js server for Embocorp application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "console.log('Hello_world');",
+    "cover": "nyc --cache npm test; nyc report --reporter=html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Embocorp/web-node.git"
+  },
+  "keywords": [
+    "embocorp"
+  ],
+  "author": "Theodore Kim",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Embocorp/web-node/issues"
+  },
+  "homepage": "https://github.com/Embocorp/web-node#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "engines": {
+    "node": ">=4.3.2"
+  }
+}
