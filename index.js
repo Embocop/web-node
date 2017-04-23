@@ -4,12 +4,15 @@ const express = require('express');
 
 const app = express();
 
-// [START hello_world]
-// Say hello!
+app.set("view engine", "pug");
+
 app.get('/', (req, res) => {
-  res.status(200).send('Hello, Embocorp!');
+  res.render('index.pug');
 });
-// [END hello_world]
+
+app.use('/css', express.static('front/resources/css'));
+app.use('/images', express.static('front/resources/images'));
+app.use('/js', express.static('front/resources/js'));
 
 if (module === require.main) {
   // [START server]

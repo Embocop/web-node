@@ -1,0 +1,75 @@
+- var background_hint = "The background contains all pertinent information related to your investigation.  Often it is the information which inspired you to start the experiment or information that is crtical to known before starting the experiment."; 
+doctype html
+head
+  link(rel='stylesheet', href='/css/index.css')
+  link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+  link(rel="icon", type="image/png", href="images/logo.PNG")
+  title The Multicorder
+  script(src="https://use.fontawesome.com/2a83c619b3.js")
+body
+  div.container-fluid
+    div.row#filter(onclick="destroyPopover()")
+      div.col-md-6.col-md-offset-3#popup
+        div.card-header
+          span.card-header-name#popup-name
+          span.card-header-tools
+            i.fa.fa-times(aria-hidden="true", onclick="destroyPopover()")
+        div.card-body#popup-body
+    div.row
+      div.col-md-12.vertical-container#title-container
+        div.centered.vertical-center#title
+          img(src="images/logo.PNG") 
+          span.header The Multicorder
+        div.float-down#title-footer 
+          span#title-footer-item-left 
+            a.no-style(href="#multicorder") What's Multicorder?
+          span#title-footer-item-left
+            a.no-style(href="#platform") Explore our Platform
+          span#title-footer-item-left Products
+          span#title-footer-item-left Follow us
+          span#title-footer-item-right
+            a.no-style(href="http://twitter.com/multicorder", target="_blank")
+              i(class="fa fa-twitter", aria-hidden="true")
+          span#title-footer-item-right
+            i(class="fa fa-facebook" aria-hidden="true")
+          span#title-footer-item-right
+            a.no-style(href="mailto:teddy@embi.io")
+              i(class="fa fa-envelope" aria-hidden="true")
+    div.row#multicorder
+      div.col-md-8.col-md-offset-2
+        span.header What's a Multicorder?
+        div.card
+          div.card-header 
+            span.card-header-name Hi, Multicorder!
+            span.card-header-tools 
+              i(class="fa fa-minus-square-o", aria-hidden="true", onclick="deleteCard(this)")
+          div.card-body 
+            p
+              | The Multicorder experimental science education platform brings the power of the laboratory
+              | into your classroom, bedroom and dormroom!
+            p
+              | The Multicorder is both a hardware and software solution for your hands-on experimental science
+              | education needs. It gives you the flexibility to design and implement a wide variety of experiments
+              | as well as plan, organize and collaborate on them with other experimenters using the platform.
+              | When you are done, publish your findings to our online journal, then try to refute or support other
+              | experimenters' claims by replicating their investigation.  
+            p
+              | The Multicorder platform is not only easy-to-learn, but fun to use, cost-effective, and truly
+              | educational!
+    
+    div.row#platform
+      div.col-md-8.col-md-offset-2
+        span.header Our Platform
+        div.card
+          div.card-header
+            span.card-header-name Background
+            span.card-header-tools 
+              i.fa.fa-minus-square-o(aria-hidden="true", onclick="deleteCard(this)")
+              i.fa.fa-pencil(aria-hidden="true", onclick="editCard(this)")
+              i.fa.fa-info-circle(aria-hidden="true", onclick="infoCard(this)")
+                input.Background(type="hidden", value=background_hint)
+          div.card-body
+              | Our platform is easy to integrate into any level of experimental science education, the only you need to know, as a user, is the experimental method.  The entire UI is design around "cards," which are supposed to emulate pages in a lab notebook. You can add, remove, or edit cards as you please.
+              | Explore our platform (and business model) using the cards below.  If you accidentally delete something, don't worry, just refresh the page!
+        
+  script(src="/js/index.js")
