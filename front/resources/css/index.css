@@ -18,7 +18,8 @@ h1, h2, h3, h4, h5, h6, .header {
 .vertical-center {
   position: absolute;
   top:50%;
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 .float-down {
   position: absolute;
@@ -34,7 +35,7 @@ h1, h2, h3, h4, h5, h6, .header {
   padding: 20px 30px !important;
   z-index: 100;
 }
-.row:not(#filter) {
+.row:not(#filter):(.not) {
   margin-bottom: 50px !important;
 }
 .vertical-container {
@@ -69,6 +70,50 @@ h1, h2, h3, h4, h5, h6, .header {
 #title-footer-item-right {
   float: right;
   margin-left: 20px;
+}
+#nav {
+  background: #0071c1;
+  width:100%;
+  color:#f8f8f8;
+  font-weight: 600;
+  overflow: hidden;
+  margin-bottom: 20px;
+  font-family: "Ubuntu", sans-serif;
+  border-right: 3px solid #CCC;
+  border-bottom: 3px solid #CCC;
+  transition: all 1s;
+  -webkit-transition: all 1s;
+}
+.relative {
+  position: relative;
+}
+.glued {
+  position: fixed;
+  top:0;
+  left: 0;
+  z-index:99;
+}
+.active {
+  border-color:#fff !important;
+}
+#nav span.first {
+  margin-left: 5px;
+}
+#nav span {
+  display: block;
+  padding: 15px 10px;
+  margin-right: 5px;
+  float:left;
+  font-size: 18px;
+  transition: border-color 0.5s;
+  cursor: pointer;
+  border-bottom: 5px solid transparent;
+}
+#nav span:hover {
+  border-color:#fff;
+}
+#placeholder {
+  position: relative;
 }
 .card {
   background: #fff;
@@ -114,8 +159,8 @@ h1, h2, h3, h4, h5, h6, .header {
   margin: 5px;
   padding: 5px;
   font-family: "Helvetica", sans-serif;
-  font-size: 20px
-  border-width: 1px;
+  font-size: 20px;
+  border-width: 1px
 }
 .no-style {
   text-decoration: none;
@@ -133,6 +178,7 @@ h1, h2, h3, h4, h5, h6, .header {
   display: none;
   opacity: 0;
   transition: opacity 0.5s;
+  -webkit-transition: opacity 0.5s;
 }
 
 #popup {
@@ -141,7 +187,8 @@ h1, h2, h3, h4, h5, h6, .header {
   padding-bottom: 10px;
   position: relative !important;
   top:50% !important;
-  transform: translateY(-50%) !important;
+  -webkit-transform: translateY(-50%) !important;
+          transform: translateY(-50%) !important;
   margin-left: auto !important;
   margin-right: auto !important;
   float: none !important;

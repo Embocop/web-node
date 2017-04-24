@@ -1,0 +1,6 @@
+{
+    "descriptions" : {
+        "Background" : "The background contains all pertinent information related to your investigation.  Often it is the information which inspired you to start the experiment or information that is crtical to known before starting the experiment.",
+        "Problem" : "The problem is the experimental question that you are trying to answer."
+    }
+}

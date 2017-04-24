@@ -1,4 +1,4 @@
-- var background_hint = "The background contains all pertinent information related to your investigation.  Often it is the information which inspired you to start the experiment or information that is crtical to known before starting the experiment."; 
+include cards/index.pug
 doctype html
 head
   link(rel='stylesheet', href='/css/index.css')
@@ -18,10 +18,10 @@ body
     div.row
       div.col-md-12.vertical-container#title-container
         div.centered.vertical-center#title
-          img(src="images/logo.PNG") 
+          img(src="images/logo.PNG")
           span.header The Multicorder
-        div.float-down#title-footer 
-          span#title-footer-item-left 
+        div.float-down#title-footer
+          span#title-footer-item-left
             a.no-style(href="#multicorder") What's Multicorder?
           span#title-footer-item-left
             a.no-style(href="#platform") Explore our Platform
@@ -39,11 +39,11 @@ body
       div.col-md-8.col-md-offset-2
         span.header What's a Multicorder?
         div.card
-          div.card-header 
+          div.card-header
             span.card-header-name Hi, Multicorder!
-            span.card-header-tools 
+            span.card-header-tools
               i(class="fa fa-minus-square-o", aria-hidden="true", onclick="deleteCard(this)")
-          div.card-body 
+          div.card-body
             p
               | The Multicorder experimental science education platform brings the power of the laboratory
               | into your classroom, bedroom and dormroom!
@@ -52,24 +52,29 @@ body
               | education needs. It gives you the flexibility to design and implement a wide variety of experiments
               | as well as plan, organize and collaborate on them with other experimenters using the platform.
               | When you are done, publish your findings to our online journal, then try to refute or support other
-              | experimenters' claims by replicating their investigation.  
+              | experimenters' claims by replicating their investigation.
             p
               | The Multicorder platform is not only easy-to-learn, but fun to use, cost-effective, and truly
               | educational!
-    
+
     div.row#platform
       div.col-md-8.col-md-offset-2
         span.header Our Platform
-        div.card
-          div.card-header
-            span.card-header-name Background
-            span.card-header-tools 
-              i.fa.fa-minus-square-o(aria-hidden="true", onclick="deleteCard(this)")
-              i.fa.fa-pencil(aria-hidden="true", onclick="editCard(this)")
-              i.fa.fa-info-circle(aria-hidden="true", onclick="infoCard(this)")
-                input.Background(type="hidden", value=background_hint)
-          div.card-body
-              | Our platform is easy to integrate into any level of experimental science education, the only you need to know, as a user, is the experimental method.  The entire UI is design around "cards," which are supposed to emulate pages in a lab notebook. You can add, remove, or edit cards as you please.
-              | Explore our platform (and business model) using the cards below.  If you accidentally delete something, don't worry, just refresh the page!
-        
+        div#placeholder
+        div#nav.relative
+          span.first(onclick="filterClick(this, 'Problem')") PROBLEM
+          span(onclick="filterClick(this, 'Hypothesis')") HYPOTHESIS
+          span(onclick="filterClick(this, 'Materials')") MATERIALS
+          span(onclick="filterClick(this, 'Experiment')") EXPERIMENT
+          span(onclick="filterClick(this, 'DataAnalysis')") DATA ANALYSIS
+          span(onclick="filterClick(this, 'Conclusions')") CONCLUSIONS
+          
+        each card in experiment.cards 
+          if card.name == "Independent Variable" || card.name == "Dependent Variable" 
+            +variable(card, description, tools)
+          else 
+            +default(card, description, tools)
+              
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js")
+  script(src="/js/global.js")
   script(src="/js/index.js")
