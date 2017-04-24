@@ -21,6 +21,16 @@ h1, h2, h3, h4, h5, h6, .header {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
 }
+button {
+  background: rgba(0,131, 193, 0.5);
+  color:#000 !important;
+  transition: all 0.5s;
+  font-size: 18px;
+}
+button:hover {
+  background: rgba(0,131, 193, 1);
+  color: white !important;
+}
 .float-down {
   position: absolute;
   bottom: 0;

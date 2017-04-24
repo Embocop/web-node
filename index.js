@@ -6,33 +6,16 @@ global.__app = __dirname + '/app_modules/';
 const express = require('express');
 const app = express();
 const router = require("./routes/index.js");
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+var bodyParser = require('body-parser');
+const db = require(__app + "db");
 
+db.configure();
 
-// // mongoose.connect("mongodb://base:;L'd7&#Q>T'e:keN@35.185.100.121:27017/emails", (err, db) => {
-// //   if(err) throw err;
-// // });
-// //
-// // var Email = mongoose.model('Email', new Schema({
-// //   name: String,
-// //   email: String,
-// //   beta: Boolean
-// // }));
-// //
-// // var test = new Email({
-// //   name: 'Theodore Kim',
-// //   email: 'teddy@embi.io',
-// //   beta: true
-// // });
-//
-// // save the sample user
-// test.save(function(err) {
-//   if (err) throw err;
-//
-//   console.log('User saved successfully');
-//   res.json({ success: true });
-// });
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 app.set("view engine", "pug");
 

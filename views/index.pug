@@ -26,7 +26,8 @@ body
           span#title-footer-item-left
             a.no-style(href="#platform") Explore our Platform
           span#title-footer-item-left Products
-          span#title-footer-item-left Follow us
+          span#title-footer-item-left 
+            a.no-style(href="#follow") Follow us
           span#title-footer-item-right
             a.no-style(href="http://twitter.com/multicorder", target="_blank")
               i(class="fa fa-twitter", aria-hidden="true")
@@ -74,6 +75,19 @@ body
             +variable(card, description, tools)
           else 
             +default(card, description, tools)
+    
+    div.row#follow
+      div.col-md-8.col-md-offset-2
+        span.header Follow Us
+        div.card
+          div.card-header
+            span.card-header-name Join our Mailing List!
+          div.card-body(style="text-align:center;")
+            p Join our mailing list to keep in the loop about upcoming events, cool news, and updates on our progress!
+            input#email(type="email", placeholder="science@supporter.com", style="padding:20px;font-size:18px;border: 1px solid #ddd;")
+            button(style="padding:20px;margin-left:20px;border:none", onclick="addSubscriber();") Keep me posted!
+            span#error(style="display:none;color:#cc0000;margin-top:20px;") Something went wrong
+            span#good(style="display:none;color:#6cc070;margin-top:20px;") Thanks for joining, you'll receive an email soon!
               
   script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js")
   script(src="/js/global.js")

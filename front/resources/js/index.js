@@ -114,3 +114,22 @@ function sC(el) {
   el.className = "fa fa-pencil";
   el.onclick = () => { editCard(el) };
 }
+
+var addSubscriber = function() {
+  var email_form = document.getElementById("email");
+  var email = email_form.value;
+
+  function showMessage (type, text) {
+    var message = document.getElementById(type);
+    message.innerHTML = text;
+    message.style.display = "block";
+    setTimeout(()=> {message.style.display = "none";}, 2000);
+  }
+
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if(!re.test(email)) {
+    showMessage("error", "Please provide a valid email address");
+  } else {
+    post("add_subscriber", {email: email}, (data) => {showMessage("good", "Thank you!  You should receive an email confirmation shortly.");}, (err) => {console.error(err);});
+  }
+}
