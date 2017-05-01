@@ -2,6 +2,7 @@
 
 global.__data = __dirname + '/data/';
 global.__app = __dirname + '/app_modules/';
+global.__top = __dirname + '/';
 
 const express     = require('express');
 const app         = express();
@@ -10,24 +11,26 @@ const router      = require("./routes/index.js");
 const morgan      = require("morgan");
 const io          = require("socket.io")(http);
 const compression = require("compression");
+const config      = require("./config.json");
 
 var bodyParser    = require('body-parser');
 
 const db          = require(__app + "db");
 
+app.set("secret" , config.app.secret);
 
 // Configure db connect
-db.configure();
+db.configure(config.db);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(compression());
-
-app.use(morgan('dev'));
-
 // parse application/json
 app.use(bodyParser.json({limit: '50mb'}));
 
+// FOR DEVELOPMENT ONLY
+app.use(morgan('dev'));
+
+// Render engine for Pug -> HTML
 app.set("view engine", "pug");
 
 app.use("/", router);

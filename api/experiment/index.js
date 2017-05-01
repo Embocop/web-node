@@ -1,31 +1,23 @@
 var router        = require("express").Router();
 var db            = require(__app + "db");
+const auth        = require(__app + "auth");
+
+router.use(auth.userverification);
 
 router.post('/', (req, res) => {
-  var experiment = req.body;
-  var data = new db.Experiment({
-    Name: experiment.Name,
-    Created: experiment.Created,
-    Author: experiment.Author,
-    FileName: experiment.FileName,
-    Thumbnail: experiment.Thumbnail,
-    Sharing: experiment.Sharing,
-    Contributors: experiment.Contributors,
-    Devices: experiment.Devices,
-    Cards: experiment.Cards
-  });
+  var data = new db.Experiment(req.body);
   db.Experiment.update({'FileName' : experiment.FileName}, experiment, {upsert:true}, function(err, doc){
     if (err) {
-     res.status(500).send({error: err});
+     res.status(500).send({ success: false, message: err });
      throw err;
     }
-    res.status(200).send({message: "good"});
+    res.status(200).send({ success: true, message: "good" });
   });
 })
 .get("/", (req, res) => {
   db.Experiment.find({}).limit(10).exec(function (err, data) {
     if (err) res.status(500).send({error: err});
-    res.statis(200).send(data);
+    res.status(200).send({ success: true, data: data });
   });
 })
 .get("/:name", (req, res) => {
@@ -33,7 +25,7 @@ router.post('/', (req, res) => {
   db.Experiment.find({Name : name}, function (err, data) {
     if (err) res.status(500).send({error: err});
     else if (data.length == 0) res.status(204).send({error: "No Content"});
-    res.status(200).send(data);
+    res.status(200).send({success: true, data: data });
   });
 })
 .get("/:user", (req, res) => {

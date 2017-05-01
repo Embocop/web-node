@@ -5,5 +5,8 @@
     "dbuser" : "root",
     "dbpwd" : "~sgQA7ESC&p6m",
     "dbname" : "experiment"
+  },
+  "app" : {
+    "secret" : "39BDEB28902F6D3D09FCB4BC7B9A49844C7E7833ABC3BAA68"
   }
 }
