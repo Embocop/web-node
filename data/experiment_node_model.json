@@ -1,0 +1,15 @@
+{
+  "ExperimentNode" : {
+    "Name" : "String",
+    "Content" : "String",
+    "Category" : "String",
+    "Description" : "String"
+  },
+  "VariableNode" : {
+    "Name" : "String",
+    "Content" : "String",
+    "Category" : "Problem",
+    "Description" : "String",
+    "VariableType" : "String"
+  }
+}

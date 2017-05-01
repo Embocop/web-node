@@ -1,0 +1,13 @@
+{
+  "Experiment": {
+    "Name" : "String",
+    "Created" : "String",
+    "Author" : "Array(User)",
+    "FileName" : "String",
+    "Thumbnail" : "String/jpeg",
+    "Sharing" : "String",
+    "Contributor" : "Array(User)",
+    "Device" : "Array(Device)",
+    "Cards" : "Array(ExperimentNodes)"
+  }
+}

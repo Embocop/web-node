@@ -6,7 +6,7 @@ mixin default(card, descriptions, tools)
         i.fa.fa-minus-square-o(aria-hidden="true", onclick="deleteCard(this)")
         i.fa.fa-pencil(aria-hidden="true", onclick="editCard(this)")
         i.fa.fa-info-circle(aria-hidden="true", onclick="infoCard(this)")
-          input.Background(type="hidden", value=description[card.name])
+          input(class=card.name, type="hidden", value=description[card.name])
     div.card-body!=tools.newlineParse(card.content)
 
   mixin variable(card, descriptions, tools)
@@ -16,7 +16,7 @@ mixin default(card, descriptions, tools)
         span.card-header-tools
           i.fa.fa-minus-square-o(aria-hidden="true", onclick="deleteCard(this)")
           i.fa.fa-info-circle(aria-hidden="true", onclick="infoCard(this)")
-            input.Background(type="hidden", value=description[card.name])
+            input(class=card.name, type="hidden", value=description[card.name])
       div.card-body
         div.row.not(style="padding-top: 20px") 
           div.col-xs-6(style="text-align:center;padding: 0 30px;") Measurement

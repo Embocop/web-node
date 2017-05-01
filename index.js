@@ -3,19 +3,30 @@
 global.__data = __dirname + '/data/';
 global.__app = __dirname + '/app_modules/';
 
-const express = require('express');
-const app = express();
-const router = require("./routes/index.js");
-var bodyParser = require('body-parser');
-const db = require(__app + "db");
+const express     = require('express');
+const app         = express();
+const http        = require("http").Server(app);
+const router      = require("./routes/index.js");
+const morgan      = require("morgan");
+const io          = require("socket.io")(http);
+const compression = require("compression");
 
+var bodyParser    = require('body-parser');
+
+const db          = require(__app + "db");
+
+
+// Configure db connect
 db.configure();
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(compression());
+
+app.use(morgan('dev'));
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '50mb'}));
 
 app.set("view engine", "pug");
 
@@ -34,5 +45,14 @@ if (module === require.main) {
   });
   // [END server]
 }
+
+http.listen(80);
+
+io.on('connection', function (socket){
+  socket.emit('news', {hello: 'world'});
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+})
 
 module.exports = app;

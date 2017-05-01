@@ -23,13 +23,16 @@
   "homepage": "https://github.com/Embocorp/web-node#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "compression": "^1.6.2",
     "express": "^4.15.2",
     "fs": "0.0.1-security",
     "lodash": "^4.17.4",
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.6",
+    "morgan": "^1.8.1",
     "nodemailer": "^4.0.1",
-    "pug": "^2.0.0-beta.12"
+    "pug": "^2.0.0-beta.12",
+    "socket.io": "^1.7.3"
   },
   "engines": {
     "node": ">=4.3.2"

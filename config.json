@@ -1,13 +1,9 @@
 {
   "db" : {
-    "dbhost" : "35.185.11.199",
+    "dbhost" : "35.190.145.122",
     "dbport" : "27017",
     "dbuser" : "root",
-    "dbpwd" : "abc123",
-    "dbname" : "emails"
-  },
-  "GCLOUD_PROJECT": "nodal-pixel-165113",
-  "DATA_BACKEND": "mongodb",
-  "MONGO_URL": "mongodb://35.185.100.121:27017",
-  "MONGO_COLLECTION": "books"
+    "dbpwd" : "~sgQA7ESC&p6m",
+    "dbname" : "experiment"
+  }
 }
