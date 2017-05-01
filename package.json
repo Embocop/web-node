@@ -22,10 +22,12 @@
   },
   "homepage": "https://github.com/Embocorp/web-node#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
     "compression": "^1.6.2",
     "express": "^4.15.2",
     "fs": "0.0.1-security",
+    "jsonwebtoken": "^7.4.0",
     "lodash": "^4.17.4",
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.6",
