@@ -1,8 +1,10 @@
 const mongoose    = require("mongoose");
 const Schema      = mongoose.Schema;
+var history       = require('mongoose-diff-history/diffHistory');
 var response      = require(__app + "response");
 var __            = require("underscore");
 
+module.exports.history = history;
 
 module.exports.configure = function(config) {
   const uri = "mongodb://" + config.dbuser + ":" + config.dbpwd + "@" + config.dbhost + ":" + config.dbport + "/" + config.dbname;
@@ -13,7 +15,7 @@ module.exports.Email = mongoose.model('Email', new Schema({
   email : { type: String, unique: true, required: true }
 }));
 
-module.exports.Experiment = mongoose.model('Experiment', new Schema({
+var ExperimentScheme = new Schema({
   Name: { type: String, required: true},
   Created: { type: Date, required: true },
   Author: { type : String, required: true },
@@ -22,17 +24,34 @@ module.exports.Experiment = mongoose.model('Experiment', new Schema({
   Sharing: String,
   Contributors: Array,
   Devices: Array,
-  Cards: { type: Array, required: true }
-}));
+  Cards: { type: [ {} ], required: false }
+}, { timestamps: { createdAt: 'created_at' } });
 
-module.exports.User = mongoose.model('User', new Schema({
+ExperimentScheme.plugin(history.plugin);
+
+module.exports.Experiment = mongoose.model('Experiment', ExperimentScheme);
+
+var UserSchema = new Schema({
   Username: { type: String, unique: true, required: true, dropDups: true },
   Email: { type: String, unique: true, required: true, dropDups: true },
   Password: { type : String, required: true },
   First: { type: String, required: true },
   Last: { type: String, required: true },
   Type: { type: String, required: true },
-  Experiments: { type: Number, default: 0 }
+  Experiments: { type: Number, default: 0 },
+  Avatar: { type: String, default : "" },
+  Points : { type : Number, default : 0 }
+}, { timestamps: true });
+
+UserSchema.plugin(history.plugin);
+
+module.exports.User = mongoose.model('User', UserSchema);
+
+module.exports.Applications = mongoose.model('Applications', new Schema ({
+  Name : { type : String, unique : true, required : true, dropDups : true },
+  Id : { type : Number, unique : true, required : true, dropDups : true},
+  Key : { type : String, required : true},
+  Permissions : { type : Array, required : true }
 }));
 
 module.exports.createModel = function(name, schema) {
@@ -50,15 +69,25 @@ module.exports.dbCallback = function (res, options) {
     }
   };
   options = __.extend(defaults, options);
-
   return (err, data) => {
     if (err) options.error(err);
-    else if (data.length == 0 && options.none != null) options.none();
+    else if (data.length == 0 && options.none != null) {
+      options.none();
+    }
     else options.success(data);
   }
 }
-/*
-Email.find({}, function (err, emails) {
-  console.log(emails);
-});
-*/
+
+module.exports.getIdFromUsername = function (username, callback) {
+  module.exports.User.find( { Username : username } ).select('_id').exec(callback);
+}
+
+module.exports.getUserExperiments = function (username, limit, sort, callback) {
+  module.exports.Experiment.find ( { Author : username } )
+    .limit(limit)
+    .sort(sort)
+    .exec((err, data) => {
+      if (err) throw response.error.Database(err);
+      callback(data);
+    });
+}

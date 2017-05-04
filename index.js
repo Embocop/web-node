@@ -56,6 +56,15 @@ io.on('connection', function (socket){
   socket.on('my other event', function (data) {
     console.log(data);
   });
-})
+});
+
+db.Experiment.remove({Name : "Test Experiment"}, function(err) {
+    if (!err) {
+      console.log("deleted");
+    }
+    else {
+      console.log(err);
+    }
+});
 
 module.exports = app;

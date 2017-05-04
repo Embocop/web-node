@@ -4,7 +4,7 @@ module.exports.error.NoUsers = {
   success : false,
   status : 204,
   error : {
-    type : "NoUser",
+    type : "NoUsers",
     message : "No user found with the supplied credentials"
   }
 };
@@ -52,3 +52,24 @@ module.exports.error.IncompleteRequest = {
     message : "Your request did not contain all of the required fields"
   }
 };
+
+module.exports.error.NoResults = {
+  success : false,
+  status : 204,
+  error : {
+    type : "NoResults",
+    message : "There is no data available to match your request."
+  }
+}
+
+module.exports.error.HistoryError = function (err) {
+  var output = {
+    success : false,
+    status : 500,
+    error : {
+      type: "HistoryError",
+      message : "There was an error fetchign the database's history."
+    }
+  };
+  return output;
+}

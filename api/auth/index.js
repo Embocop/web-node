@@ -13,6 +13,7 @@ router.post('/login', (req, res) => {
 
   var successcallback = function (data) {
     var user = data[0];
+    console.log(user);
     auth.testPassword(credentials.Password, user.Password, res, () => {
       delete user.Password;
       delete user._id;
@@ -22,11 +23,12 @@ router.post('/login', (req, res) => {
     });
   }
   var nonecallback = function () {
-    res.status(204).send(error.NoUser);
+    res.status(400).send(error.NoUsers);
   }
-  var dbcallback = db.dbCallback(res, {success: successcallback, none: nonecallback});
 
-  db.User.find({username : credentials.username}, dbcallback);
+  var dbcallback = db.dbCallback(res, {success: successcallback, none: nonecallback});
+  
+  db.User.find({Username : credentials.Username}, dbcallback);
 
 });
 
