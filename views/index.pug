@@ -24,10 +24,9 @@ body
           span#title-footer-item-left
             a.no-style(href="#multicorder") What's Multicorder?
           span#title-footer-item-left
-            a.no-style(href="#platform") Explore our Platform
-          span#title-footer-item-left Products
+            a.no-style(href="#products") Products
           span#title-footer-item-left 
-            a.no-style(href="#follow") Follow us
+            a.no-style(href="#news") News
           span#title-footer-item-right
             a.no-style(href="http://twitter.com/multicorder", target="_blank")
               i(class="fa fa-twitter", aria-hidden="true")
@@ -38,8 +37,11 @@ body
               i(class="fa fa-envelope" aria-hidden="true")
     div.row#multicorder
       div.col-md-8.col-md-offset-2
-        span.header What's a Multicorder?
-        div.card
+        span.header What's Multicorder?
+        div.card.imaged
+          div.card-image-header
+            div.placeholder-background
+                img(src="images/app.png")
           div.card-header
             span.card-header-name Hi, Multicorder!
             span.card-header-tools
@@ -48,47 +50,61 @@ body
             p
               | The Multicorder experimental science education platform brings the power of the laboratory
               | into your classroom, bedroom and dormroom!
-            p
-              | The Multicorder is both a hardware and software solution for your hands-on experimental science
-              | education needs. It gives you the flexibility to design and implement a wide variety of experiments
-              | as well as plan, organize and collaborate on them with other experimenters using the platform.
-              | When you are done, publish your findings to our online journal, then try to refute or support other
-              | experimenters' claims by replicating their investigation.
-            p
-              | The Multicorder platform is not only easy-to-learn, but fun to use, cost-effective, and truly
-              | educational!
+        div.card
+            div.card-header
+                span.card-header-name Multicorder's Features
+                span.card-header-tools
+                    i(class="fa fa-minus-square-o", aria-hidden="true", onclick="deleteCard(this)")
+            div.card-body
+                p
+                    | The Multicorder platform includes a versitile, yet easy-to-learn digital 
+                    | science sensing device which offers integration with both a mobile and desktop application.
+                    | The Multicorder also offers collaboration and sharing capabilities with our powerful 
+                    | cloud API.
 
-    div.row#platform
+    div.row#news
       div.col-md-8.col-md-offset-2
-        span.header Our Platform
-        div#placeholder
-        div#nav.relative
-          span.first(onclick="filterClick(this, 'Problem')") PROBLEM
-          span(onclick="filterClick(this, 'Hypothesis')") HYPOTHESIS
-          span(onclick="filterClick(this, 'Materials')") MATERIALS
-          span(onclick="filterClick(this, 'Experiment')") EXPERIMENT
-          span(onclick="filterClick(this, 'DataAnalysis')") DATA ANALYSIS
-          span(onclick="filterClick(this, 'Conclusions')") CONCLUSIONS
-          
-        each card in experiment.cards 
-          if card.name == "Independent Variable" || card.name == "Dependent Variable" 
-            +variable(card, description, tools)
-          else 
-            +default(card, description, tools)
-    
-    div.row#follow
-      div.col-md-8.col-md-offset-2
-        span.header Follow Us
+        span.header News
         div.card
           div.card-header
-            span.card-header-name Join our Mailing List!
+            span.card-header-name Looking for Multicorder Updates?
           div.card-body(style="text-align:center;")
-            p Join our mailing list to keep in the loop about upcoming events, cool news, and updates on our progress!
+            p 
+                | Join our mailing list to keep in the loop about upcoming events, cool news, and updates on our progress!
             input#email(type="email", placeholder="science@supporter.com", style="padding:20px;font-size:18px;border: 1px solid #ddd;")
             button(style="padding:20px;margin-left:20px;border:none", onclick="addSubscriber();") Keep me posted!
             span#error(style="display:none;color:#cc0000;margin-top:20px;") Something went wrong
             span#good(style="display:none;color:#6cc070;margin-top:20px;") Thanks for joining, you'll receive an email soon!
-              
+        div.row
+            div.col-md-6
+                div.card.imaged(style="cursor:pointer;", onclick="window.location='http://google.com';")
+                    div.card-image-header
+                        img(src="images/blog.PNG")
+                    div.card-header Visit our Blog
+                    div.card-body
+                        | For the most up-to-date information about our progress and any other exciting
+                        | news, head on over to our blog!
+            div.col-md-6
+                div.card.imaged(style="cursor:pointer;", onclick="window.location='http://facebook.com/multicorder';")
+                    div.card-image-header
+                        img(src="images/social.png")
+                    div.card-header Follow us on Social Media
+                    div.card-body
+                        | Follow us on Twitter and Facebook to be the first to know about upcoming events
+                        | and announcements!
+            
+
+    div.row#footer(style="margin-top:20px")
+      div.col-md-8.col-md-offset-2
+        div.card
+          div.card-body(style="text-align:center;font-size:14px")
+            div Multicorder Science, Inc. &copy;2017
+            div 
+                | Contact Us:&nbsp;
+                a(href="mailto:team@multicorder.io")
+                    i(class="fa fa-envelope" aria-hidden="true")
+                    | &nbsp;team@multicorder.io
+            
   script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js")
   script(src="/js/global.js")
   script(src="/js/index.js")

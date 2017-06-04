@@ -20,7 +20,7 @@ const db          = require(__app + "db");
 app.set("secret" , config.app.secret);
 
 // Configure db connect
-db.configure(config.db);
+//db.configure(config.db);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -51,20 +51,11 @@ if (module === require.main) {
 
 http.listen(80);
 
-io.on('connection', function (socket){
-  socket.emit('news', {hello: 'world'});
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
-});
-
-db.Experiment.remove({Name : "Test Experiment"}, function(err) {
-    if (!err) {
-      console.log("deleted");
-    }
-    else {
-      console.log(err);
-    }
-});
+//io.on('connection', function (socket){
+//  socket.emit('news', {hello: 'world'});
+//  socket.on('my other event', function (data) {
+//    console.log(data);
+//  });
+//});
 
 module.exports = app;

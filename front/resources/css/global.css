@@ -1,0 +1,19 @@
+.text-center {
+    text-align: center;
+}
+.text-left {
+    text-align: left;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.placeholder-background {
+    background: #0086e5;
+    width: 100%;
+    text-align:center;
+    padding: 0px 250px;
+}
+.placeholder-background img {
+}
