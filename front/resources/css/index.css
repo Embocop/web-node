@@ -23,10 +23,10 @@ h1, h2, h3, h4, h5, h6, .header {
           transform: translateY(-50%);
 }
 button {
-  background: rgba(0,131, 193, 0.5);
-  color:#000 !important;
-  transition: all 0.5s;
-  font-size: 18px;
+    background: #0086e5;
+    color: #FFFFFF !important;
+    transition: all 0.5s;
+    font-size: 18px;
 }
 button:hover {
   background: rgba(0,131, 193, 1);
@@ -132,9 +132,9 @@ button:hover {
   border-right: 3px solid #CCC;
   border-bottom: 3px solid #CCC;
   min-height: 20px;
-  padding:5px;
-  margin-bottom: 30px;
-  overflow-x: hidden;
+  padding:5px !important;
+  margin: 15px 5px;
+  overflow: hidden;
 }
 
 .card-image-header {

@@ -4,14 +4,16 @@ global.__data = __dirname + '/data/';
 global.__app = __dirname + '/app_modules/';
 global.__top = __dirname + '/';
 
-const express     = require('express');
-const app         = express();
-const http        = require("http").Server(app);
-const router      = require("./routes/index.js");
-const morgan      = require("morgan");
-const io          = require("socket.io")(http);
-const compression = require("compression");
-const config      = require("./config.json");
+const express       = require('express');
+const app           = express();
+const http          = require("http").Server(app);
+const router = require("./routes/index.js");
+const beta_router = require("./routes/beta.js");
+const morgan        = require("morgan");
+const io            = require("socket.io")(http);
+const compression   = require("compression");
+const config        = require("./config.json");
+const cookie = require("cookie-parser");
 
 var bodyParser    = require('body-parser');
 
@@ -25,7 +27,9 @@ app.set("secret" , config.app.secret);
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
-app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.json({ limit: '50mb' }));
+// parse cookies
+app.use(cookie());
 
 // FOR DEVELOPMENT ONLY
 app.use(morgan('dev'));
