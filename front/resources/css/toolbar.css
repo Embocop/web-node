@@ -1,0 +1,150 @@
+.toolbar {
+    height: 100%;
+    width: 250px;
+    position: relative;
+    float: left;
+    border-right: 3px solid #CCC;
+    padding-top: 50px;
+    text-align: right;
+    left: -170px;
+    transition: left 0.5s, margin-left 0.5s;
+}
+
+#primary {
+    background: #0071c1;
+    z-index: 300;
+}
+    
+    #primary.peek:hover {
+        left: 0;
+    }
+
+.wait {
+    left: 0 !important;
+}
+
+.toolbar .option {
+    display: block;
+    color: #FFF;
+    padding-top: 12px;
+    padding-left: 15px;
+    padding-right: 25px;
+    padding-bottom: 12px;
+    font-size: 20px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
+
+    .toolbar .option.float-down {
+        position: absolute;
+        bottom: 0;
+    }
+
+    .toolbar .option:after {
+        margin-left: -15px;
+        margin-right: -25px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        transition: transform 250ms ease-in-out;
+        transform: scaleX(0);
+        border-bottom: solid 2px #fff;
+        content: '';
+        display: block;
+        transform-origin: 100% 50%;
+    }
+
+    .toolbar .option.selected:after {
+        transform: scale(1) !important;
+    }
+
+    .toolbar .option:hover:after {
+        transform: scaleX(1);
+    }
+
+    .toolbar .option.bottom {
+        position: absolute;
+        bottom: 20px;
+        right: 0;
+        width: 100%;
+    }
+
+        .toolbar .option.bottom span {
+            top:3px !important;
+        }
+
+    .toolbar .option i, .toolbar .option img {
+        font-size: 30px;
+        width: 30px;
+        display: block;
+        text-align: center;
+        position: relative;
+        margin-left: 25px;
+        float: right;
+    }
+
+    .toolbar .option span {
+        display: block;
+        float: left;
+        max-width: 150px !important;
+        overflow-x: hidden;
+        white-space: nowrap;
+        position: relative;
+        top: 1px;
+    }
+
+    .toolbar .option.bottom i {
+        top: 5px !important;
+    }
+
+#secondary {
+    background: #FFF;
+    left: 0;
+    z-index: 200;
+    margin-left: -80px;
+}
+
+    #secondary .option {
+        color: #000 !important;
+        animation: slidein 0.5s forwards;
+    }
+
+        #secondary span#new-experiment {
+            position: absolute;
+            bottom: 20px;
+            right: 0px;
+        }
+
+    #secondary .option:after {
+        border-color: #000 !important;
+    }
+
+    #secondary.peek:hover {
+        left: 170px;
+    }
+
+#minor {
+    z-index: 100;
+    left: 0;
+    margin-left: -250px;
+    background: #DDD;
+}
+    
+    #minor .option {
+        color: #000 !important;
+    }
+
+    #minor .option::after {
+        border-color: #000;
+    }
+
+@keyframes slidein {
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 0;
+    }
+}

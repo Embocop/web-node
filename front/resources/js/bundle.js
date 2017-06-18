@@ -24,7 +24,7 @@ const deleteCard = function (e) {
     const parent = el.findAncestorByClassName("card");
     const ancestor = parent.parentNode;
     const second = function () {
-        parent.animate("height", 1, 400, "easeInQuartic", () => {
+        parent.animate("height", 1, 400, "easeInCubic", () => {
             ancestor.removeChild(parent);
         });
     }

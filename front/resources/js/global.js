@@ -8,6 +8,29 @@ module.exports.configure = function (modules) {
         return target.replace(new RegExp(search, 'g'), replacement);
     };
 
+    String.prototype.capitalize = function () {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    }
+
+    HTMLElement.prototype.getChildByClass = function (classname) {
+        let output = [];
+        for (let i = 0; i < this.childNodes.length; i++) {
+            if (this.childNodes[i].className != null && this.childNodes[i].className.includes(classname)) {
+                let names = this.childNodes[i].className.split(" ");
+                for (let j = 0; j < names.length; j++) {
+                    if (names[j] == classname) output.push(this.childNodes[i]); 
+                }
+            }
+        }
+        return output;
+    }
+
+    HTMLElement.prototype.removeAllChildren = function () {
+        while (this.children.length > 0) {
+            this.removeChild(this.children[0]);
+        }
+    }
+
     HTMLElement.prototype.hasClass = function (target) {
         const classList = this.className.split(" ");
         var flag = false;
@@ -26,11 +49,15 @@ module.exports.configure = function (modules) {
     }
 
     HTMLElement.prototype.animate = function (property, target, duration, type, callback) {
-        const current = parseFloat(window.getComputedStyle(this, null).getPropertyValue(property).replace("px", ""));
-        const diff = target - current;
-        const inc = diff / (duration / 10);
+        const current = parseFloat(window.getComputedStyle(this, null).getPropertyValue(property).replace("px", "")),
+            diff = target - current,
+            inc = diff / (duration / 10);
         var unit = "";
 
+        if (property.includes("-")) {
+            property = property.split("-")[0] + property.split("-")[1].capitalize();
+        }
+        
         if (property != "opacity") {
             unit = "px";
         }
@@ -38,6 +65,34 @@ module.exports.configure = function (modules) {
         this.style[property] = current + unit;
         timing.timedLoop((t) => {
             this.style[property] = timing[type](duration - t, current, diff, duration) + unit;
+        }, duration, 10, callback);
+    }
+
+    HTMLElement.prototype.fadeOut = function (duration, callback, remove) {
+        const current = parseFloat(window.getComputedStyle(this, null).getPropertyValue("opacity")),
+            diff = 0 - current,
+            inc = diff / (duration / 10);
+
+        this.style.opacity = current;
+        timing.timedLoop((t) => {
+            this.style.opacity = timing.easeInQuartic(duration - t, current, diff, duration);
+        }, duration, 10, () => {
+            if (remove != false) {
+                this.style.display = "none";
+            }
+            callback();
+        });
+    }
+
+    HTMLElement.prototype.fadeIn = function (duration, callback) {
+        this.style.display = "initial";
+        const current = parseFloat(window.getComputedStyle(this, null).getPropertyValue("opacity"));
+        const diff = 1 - current;
+        const inc = diff / (duration / 10);
+
+        this.style.opacity = current;
+        timing.timedLoop((t) => {
+            this.style.opacity = timing.easeInQuartic(duration - t, current, diff, duration);
         }, duration, 10, callback);
     }
 
@@ -142,4 +197,24 @@ module.exports.getElementCoords = function (elem) {
         top: top,
         left: left
     };
+}
+
+
+module.exports.formatDate = function(date) {
+    var monthNames = [
+        "January", "February", "March",
+        "April", "May", "June", "July",
+        "August", "September", "October",
+        "November", "December"
+    ];
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return monthNames[monthIndex] + ' ' + day + ', ' + year + '&nbsp;&nbsp;' + date.getHours() + ":" + date.getMinutes();
+}
+
+module.exports.currentDateTime = function () {
+    return module.exports.formatDate(new Date());  // show current date-time in console
 }

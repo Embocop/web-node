@@ -1,3 +1,23 @@
+var animation;
+
+
+module.exports.easeIn = function (t, b, c, d) {
+    t /= d;
+    return c * t * t + b;
+};
+
+module.exports.easeOut = function (t, b, c, d) {
+    t /= d;
+    return -c * t * (t - 2) + b;
+};
+
+module.exports.easeInOut = function (t, b, c, d) {
+    t /= d / 2;
+    if (t < 1) return c / 2 * t * t + b;
+    t--;
+    return -c / 2 * (t * (t - 2) - 1) + b;
+};
+
 module.exports.easeOutCubic = function (t, b, c, d) {
     t /= d;
     t--;
@@ -16,7 +36,7 @@ module.exports.easeInQuartic = function (t, start, interval, duration) {
 
 module.exports.timedLoop = function (callback, duration, increment, done) {
     if (duration >= 0) {
-        setTimeout(() => {
+        animation = setTimeout(() => {
             callback(duration);
             module.exports.timedLoop(callback, duration - increment, increment, done);
         }, increment);
@@ -27,3 +47,5 @@ module.exports.timedLoop = function (callback, duration, increment, done) {
         }
     }
 }
+
+module.exports.animation = animation;

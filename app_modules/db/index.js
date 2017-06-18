@@ -1,93 +1,78 @@
-const mongoose    = require("mongoose");
-const Schema      = mongoose.Schema;
-var history       = require('mongoose-diff-history/diffHistory');
-var response      = require(__app + "response");
-var __            = require("underscore");
+mysql = require("mysql");
+Knex = require("knex");
+process = require("process");
 
-module.exports.history = history;
+const config = {
+    user: process.env.SQL_USER,
+    password: process.env.SQL_PASSWORD,
+    database: process.env.SQL_DATABASE
+};
 
-module.exports.configure = function(config) {
-  const uri = "mongodb://" + config.dbuser + ":" + config.dbpwd + "@" + config.dbhost + ":" + config.dbport + "/" + config.dbname;
-  mongoose.connect(uri, (err, db) => { if(err) throw err; console.log("Database Connection Established!")});
-}
-
-module.exports.Email = mongoose.model('Email', new Schema({
-  email : { type: String, unique: true, required: true }
-}));
-
-var ExperimentScheme = new Schema({
-  Name: { type: String, required: true},
-  Created: { type: Date, required: true },
-  Author: { type : String, required: true },
-  FileName: { type: String, required: true, unique: true, dropDups: true },
-  Thumbnail: String,
-  Sharing: String,
-  Contributors: Array,
-  Devices: Array,
-  Cards: { type: [ {} ], required: false }
-}, { timestamps: { createdAt: 'created_at' } });
-
-ExperimentScheme.plugin(history.plugin);
-
-module.exports.Experiment = mongoose.model('Experiment', ExperimentScheme);
-
-var UserSchema = new Schema({
-  Username: { type: String, unique: true, required: true, dropDups: true },
-  Email: { type: String, unique: true, required: true, dropDups: true },
-  Password: { type : String, required: true },
-  First: { type: String, required: true },
-  Last: { type: String, required: true },
-  Type: { type: String, required: true },
-  Experiments: { type: Number, default: 0 },
-  Avatar: { type: String, default : "" },
-  Points : { type : Number, default : 0 }
-}, { timestamps: true });
-
-UserSchema.plugin(history.plugin);
-
-module.exports.User = mongoose.model('User', UserSchema);
-
-module.exports.Applications = mongoose.model('Applications', new Schema ({
-  Name : { type : String, unique : true, required : true, dropDups : true },
-  Id : { type : Number, unique : true, required : true, dropDups : true},
-  Key : { type : String, required : true},
-  Permissions : { type : Array, required : true }
-}));
-
-module.exports.createModel = function(name, schema) {
-  module.exports[name] = mongoose.model(name, new Schema(scheme));
-}
-
-module.exports.dbCallback = function (res, options) {
-  var defaults = {
-    error: (err) => {
-      res.status(500).send(error.Database(err));
-    },
-    none : null,
-    success : (data) => {
-      res.status(200).send({success: true, status: 200, data: data});
+if (process.env.INSTANCE_CONNECTION_NAME && process.env.NODE_ENV === 'production') {
+    if (process.env.SQL_CLIENT === 'mysql') {
+        config.socketPath = `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`;
+    } else if (process.env.SQL_CLIENT === 'pg') {
+        config.host = `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`;
     }
-  };
-  options = __.extend(defaults, options);
-  return (err, data) => {
-    if (err) options.error(err);
-    else if (data.length == 0 && options.none != null) {
-      options.none();
+}
+
+// Connect to the database
+const knex = Knex({
+    client: process.env.SQL_CLIENT,
+    connection: config
+});
+// [END connect]
+
+module.exports.connection = knex;
+
+module.exports.track = function (knex) {
+    function recurseChange(fid, change, index) {
+        change[index].fid = fid;
+        module.exports.connection("changes").insert(change[index]).returning("fid")
+            .then(
+            () => {
+                if (index + 1 < change.length) recurseChange(fid, change, index + 1);   
+            }
+            );
     }
-    else options.success(data);
-  }
-}
 
-module.exports.getIdFromUsername = function (username, callback) {
-  module.exports.User.find( { Username : username } ).select('_id').exec(callback);
-}
+    return function (req, res, next) {
+        if (req.method != "GET") {
+            var track = [];
+            const trackChanges = function (builder) {
+                builder.on('query-response', (response, obj, builder) => {
+                    const entry = {
+                        method: builder._method,
+                        table: builder._single.table,
+                        author: req.decoded.uid
+                    };
 
-module.exports.getUserExperiments = function (username, limit, sort, callback) {
-  module.exports.Experiment.find ( { Author : username } )
-    .limit(limit)
-    .sort(sort)
-    .exec((err, data) => {
-      if (err) throw response.error.Database(err);
-      callback(data);
-    });
+                    if (entry.method == "insert" && entry.table != "feed" && entry.table != "changes") {
+                        const changes = builder._single[entry.method];
+                        let final = [];
+                        for (var key in changes) {
+                            if (changes.hasOwnProperty(key) && key != "author") {
+                                const row = {
+                                    property: key,
+                                    old: null,
+                                    new: changes[key] 
+                                }
+                                final.push(row);
+                            }
+                        }
+                        module.exports.connection("feed").insert(entry).returning("fid")
+                            .then((data) => {
+                                recurseChange(data[0], final, 0);
+                            }, (err) => {
+                                console.log(err);
+                            });
+                    }
+                });
+            }
+            if (knex.client._events.start.length < 2) {
+                knex.client.on('start', trackChanges);
+            }
+        }
+        next();
+    };
 }

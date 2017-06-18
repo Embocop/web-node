@@ -1,13 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu');
 @import url('global.css');
+@import url('cards.css');
 
-body {
-    background: #f0f0f0 !important;
-    overflow-x: hidden !important;
-}
-h1, h2, h3, h4, h5, h6, .header {
-  font-family: 'Ubuntu', sans-serif !important;
-}
 .header {
   font-size: 36px;
 }
@@ -127,67 +121,7 @@ button:hover {
 #placeholder {
   position: relative;
 }
-.card {
-  background: #fff;
-  border-right: 3px solid #CCC;
-  border-bottom: 3px solid #CCC;
-  min-height: 20px;
-  padding:5px !important;
-  margin: 15px 5px;
-  overflow: hidden;
-}
 
-.card-image-header {
-    margin-left: -10px;
-    margin-right: -10px;
-    margin-top: -10px;
-    overflow: hidden;
-}
-
-.card-image-header img {
-    margin: -5px;
-    width: 100%;
-}
-
-.card-header {
-  margin:5px;
-  border-bottom: 1px solid #DDD;
-  font-family: "Ubuntu", sans-serif;
-  padding: 5px;
-  font-size: 26px;
-  color: #080808;
-  overflow: hidden;
-}
-.card-header-name {
-  float:left;
-}
-.card-header-tools {
-  float: right;
-  margin: 0 10px;
-  font-size: 20px;
-  cursor: pointer;
-}
-.card-header-tools i {
-  margin-left: 10px;
-}
-.card-header-tools i:hover {
-  color: #808080;
-}
-.card-body {
-  margin: 5px;
-  padding: 5px;
-  font-family: "Helvetica", sans-serif;
-  font-size: 20px;
-}
-.card-body textarea {
-  width:calc(100% - 20px);
-  padding:10px !important;
-  margin: 5px;
-  padding: 5px;
-  font-family: "Helvetica", sans-serif;
-  font-size: 20px;
-  border-width: 1px
-}
 .no-style {
   text-decoration: none;
   color: inherit !important;
@@ -221,10 +155,6 @@ button:hover {
   margin-bottom: 0 !important;
 }
 
-.imaged .card-image-header img{
-    transition: transform 0.5s;
-}
-
-.imaged:hover .card-image-header img {
-    transform: scale(1.2);
+#footer {
+    margin-top: 20px;
 }

@@ -3,6 +3,85 @@ module.exports.init = function () {
     bindElementsByClass("delete-card", "click", deleteCard);
 };
 
+module.exports.createCard = function (title, tools, contents, image) {
+    const card = document.createElement("div"),
+        heading = document.createElement("div"),
+        body = document.createElement("div"),
+        allow = tools.length > 0,
+        options = document.createElement("span"),
+        headingText = document.createElement("span"),
+        footer = document.createElement("div");
+
+    const tooling = {
+        delete : document.createElement("i"),
+        edit : document.createElement("i"),
+        info: document.createElement("i"),
+        save: document.createElement("i")
+    };
+
+    tooling.delete.className = "fa fa-minus-square-o delete-card";
+    tooling.delete.addEventListener("click", deleteCard);
+    tooling.edit.className = "fa fa-pencil edit-card";
+    tooling.info.className = "fa fa-info info-card";
+    tooling.save.className = "fa fa-check info-card";
+    tooling.save.style.fontWeight = "200";
+
+    card.className = "card";
+    heading.className = "card-header";
+    body.className = "card-body";
+    headingText.className = "card-header-name";
+    headingText.innerHTML = title;
+    options.className = "card-header-tools";
+    options.setAttribute("aria-hidden", "true");
+
+    if (allow) {
+        for (var i = 0; i < tools.length; i++) {
+            let property = tools[i];
+            if (tooling.hasOwnProperty(property)) {
+                options.appendChild(tooling[property]);
+            }
+        }
+    }
+
+    heading.appendChild(headingText);
+    heading.appendChild(options);
+
+    if (typeof contents === "string" || contents instanceof String) {
+        body.innerHTML = contents;
+    } else {
+        body.appendChild(contents);
+    }
+
+    card.appendChild(heading);
+    card.appendChild(body);
+
+    card["setToolCallback"] = function (t, callback) {
+        tooling[t].addEventListener("click", () => {
+            callback(card, tooling[t]);
+        });
+    };
+
+    card["setTitle"] = function (t) {
+        headingText.title = t;
+    };
+
+    card["removeTitle"] = function () {
+        card.removeChild(heading);
+    };
+
+    card["setBodyHTML"] = function (html) {
+        body.innerHTML = html;
+    };
+
+    card["setFooterHTML"] = function (t) {
+        footer.innerHTML = t;
+        footer.className = "card-footer";
+        card.appendChild(footer);
+    };
+
+    return card;
+}
+
 const createPopover = function (title, text) {
     const filter = document.getElementById("filter");
     filter.style.display = 'block';
@@ -18,16 +97,16 @@ const destroyPopover = function () {
 }
 
 const deleteCard = function (e) {
-    const el = e.target;
-    console.log(el);
-    const parent = el.findAncestorByClassName("card");
-    const ancestor = parent.parentNode;
-    const second = function () {
-        parent.animate("height", 1, 400, "easeInCubic", () => {
-            ancestor.removeChild(parent);
-        });
-    }
-    parent.animate("opacity", 0, 500, "easeInQuartic", second);
+    const el = e.target,
+        parent = el.findAncestorByClassName("card"),
+        ancestor = parent.parentNode,
+        second = function () {
+            parent.animate("height", 1, 300, "easeOut", () => {
+                ancestor.removeChild(parent);
+            });
+        };
+
+    parent.fadeOut(500, second, false);
 }
 
 const infoCard = function (el) {

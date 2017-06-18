@@ -1,3 +1,12 @@
+body {
+    background: #f0f0f0 !important;
+    overflow-x: hidden !important;
+}
+
+h1, h2, h3, h4, h5, h6, .header {
+    font-family: 'Ubuntu', sans-serif !important;
+}
+
 .text-center {
     text-align: center;
 }
@@ -19,10 +28,6 @@
 .placeholder-background img {
 }
 
-#footer {
-    margin-top: 20px;
-}
-
 .col-md-6 {
     width: calc(50% - 10px) !important;
 }
@@ -32,7 +37,8 @@
 }
 
 input {
-    padding: 20px;
+    padding: 10px;
+    font-size: 20px !important;
 }
 
 input[type=submit] {
@@ -50,4 +56,17 @@ input[type=submit]:hover {
 input[type=text], input[type=email]{
     border : 1px solid #A0A0A0;
     display : inline-block;
+}
+
+.centered {
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+.vertical-center {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
 }

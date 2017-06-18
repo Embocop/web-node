@@ -7,19 +7,33 @@ global.__top = __dirname + '/';
 const express       = require('express');
 const app           = express();
 const http          = require("http").Server(app);
-const router = require("./routes/index.js");
-const beta_router = require("./routes/beta.js");
 const morgan        = require("morgan");
 const io            = require("socket.io")(http);
 const compression   = require("compression");
-const config        = require("./config.json");
+//const config        = require("./config.json");
 const cookie = require("cookie-parser");
+const process = require('process');
+const Knex = require('knex');
+const subdomain = require('express-subdomain');
+var knexLogger = require('knex-logger');
+
+// Configurations 
+const appInfo = require("./data/app.json");
+
+// Routes
+const router = require("./routes/index.js");
+const apiSubRoute = require("./api/index.js");
+const betaSubRoute = require("./routes/front/platform/beta/index.js");
 
 var bodyParser    = require('body-parser');
 
 const db          = require(__app + "db");
+let knex
 
-app.set("secret" , config.app.secret);
+//DEVELOPMENT SQL CONNECTION
+app.enable('trust proxy');
+
+//app.set("secret" , config.app.secret);
 
 // Configure db connect
 //db.configure(config.db);
@@ -33,15 +47,31 @@ app.use(cookie());
 
 // FOR DEVELOPMENT ONLY
 app.use(morgan('dev'));
+//app.use(knexLogger(db.connection));
 
 // Render engine for Pug -> HTML
 app.set("view engine", "pug");
 
+
+// Routing for main site
 app.use("/", router);
+// Subdomain routing
+app.use(subdomain("api", apiSubRoute));
+app.use(subdomain("beta", betaSubRoute));
 
 app.use('/css', express.static('front/resources/css'));
 app.use('/images', express.static('front/resources/images'));
 app.use('/js', express.static('front/resources/js'));
+
+// Start database connection
+// Get type of SQL client to use
+const sqlClient = process.env.SQL_CLIENT;
+
+if (sqlClient === 'pg' || sqlClient === 'mysql') {
+    knex = db.connection;
+} else {
+    throw new Error(`The SQL_CLIENT environment variable must be set to lowercase 'pg' or 'mysql'.`);
+}
 
 if (module === require.main) {
   // [START server]

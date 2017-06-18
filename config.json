@@ -1,12 +1,10 @@
 {
-  "db" : {
-    "dbhost" : "35.190.145.122",
-    "dbport" : "27017",
-    "dbuser" : "root",
-    "dbpwd" : "~sgQA7ESC&p6m",
-    "dbname" : "experiment"
-  },
-  "app" : {
-    "secret" : "39BDEB28902F6D3D09FCB4BC7B9A49844C7E7833ABC3BAA68"
+  "db": {
+    "user": "process.env.MYSQL_USER",
+    "password": "process.env.MYSQL_PASSWORD", 
+    "database": "process.env.MYSQL_DATABASE"
+  }
+  , "app": {
+    "secret": "39BDEB28902F6D3D09FCB4BC7B9A49844C7E7833ABC3BAA68"
   }
 }

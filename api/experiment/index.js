@@ -3,47 +3,98 @@ var db            = require(__app + "db");
 const auth        = require(__app + "auth");
 const error       = require(__app + "response").error;
 
+
 router.use(auth.userverification);
+router.use(db.track(db.connection));
 
 router.post('/', (req, res) => {
-  var experiment = new db.Experiment(req.body.experiment);
-  var username = req.decoded._doc.Username;
-  experiment.save(function(err, doc){
-    if (err) { console.error(err); res.status(500).send(error.Database(err)); }
-    else res.status(201).send({ success: true, code: 201, message: "Experiment created successfully." });
-  });
-  console.log(req.decoded._doc.Username);
-  db.User.findOneAndUpdate({Username : username}, {$inc: { Experiments: 1 }}).exec((err)=> {
-    if (err) { console.log(err); res.status(500).send(error.Database(err)); }
-  });
-})
-.put('/', (req, res) => {
-  var experiment = req.body.experiment;
-  db.Experiment.update({'FileName' : experiment.FileName}, experiment, {upsert:false}, function(err, doc){
-    if (err) { console.error(err); res.status(500).send(error.Database(err)); }
-    else res.status(200).send({ success: true, code: 201, message: "Experiment updated successfully." });
-  });
-})
-.get("/", (req, res) => {
-  var nonecallback = function() { res.status(400).send(error.NoResults); }
-  var dbcallback = db.dbCallback(res, {none : nonecallback});
-  db.Experiment.find({}).limit(10).exec(dbcallback);
-})
-.get("/:name", (req, res) => {
-  var name = req.params.name;
+    const experiment = auth.requireFields(req.body, ["name"]);
+    experiment.author = req.decoded.uid;
+    if (req.body.description) experiment.summary = req.body.description;
 
-  var limit = req.query.limit || 10;
-  var sortdir = req.query.direction || -1;
-  var sortfield = req.query.sort || Name;
-  var sort = {};
-  sort[sortfield] = sortdir;
-
-  db.Experiment.find({Name : name}).limit(limit).sort(sort).exec((err, data) => {
-    if (err) res.status(500).send(error.Database(err));
-    else if (data.length == 0) res.status(400).send(error.NoResults);
-    res.status(200).send({success: true, code: 200, data: data });
-  });
+    db.connection("experiments")
+        .insert(experiment)
+        .returning("exid")
+        .then((data) => {
+            res.status(201).send({ success: true, status: 201, message: "Experiment created successfully!", data: data});
+        },
+        (err) => {
+            res.status(500).send(error.Database(err));
+        });
 })
+    .get("/", (req, res) => {
+        const limit = req.query.limit || 10,
+            offset = req.query.offset || 0,
+            temp = req.query.fields || ["exid", "name", "author"],
+            user = req.decoded.uid;
+
+        const fields = auth.verifyParams(temp, ["exid", "name", "firstname", "lastname", "author", "summary", "timestamp", "followers", "cards", "contributors"]);
+
+        db.connection("experiments")
+            .join('users', 'users.uid', '=', 'experiments.author')
+            .select(fields)
+            .where({ author: user })
+            .limit(limit)
+            .offset(offset)
+            .then((data) => {
+                if (data.length == 0) {
+                    res.status(204).send(error.NoResults);
+                } else {
+                    res.status(200).send({ success: true, status: 200, message: "Experiments found", data: data });
+                }
+            },
+            (err) => {
+                if (err) res.status(500).send(error.Database(err));
+            });
+    })
+    .get("/:id", (req, res) => {
+        const id = req.params.id;
+        const fields = ["experiments.exid", "experiments.name", "experiments.timestamp",
+            "experiments.cards", "experiments.followers", "experiments.contributors", "experiments.summary",
+            "users.username", "users.first", "users.last"];
+        db.connection("experiments")
+            .join("users", "users.uid", "experiments.author")
+            .select(fields)
+            .where({ exid: id })
+            .then((experiment) => {
+                if (experiment.length > 0) {
+                    db.connection("cards")
+                        .select()
+                        .where({ exid: id })
+                        .then((cards) => {
+                            const output = experiment[0];
+                            output.author = {
+                                username: output.username,
+                                firstname: output.first,
+                                lastname: output.last
+                            }
+                            delete output.username;
+                            delete output.last;
+                            delete output.first;
+                            output.cards = {
+                                problem: [],
+                                hypothesis: [],
+                                materials: [],
+                                procedure: [],
+                                dataanalysis: [],
+                                conclusion: []
+                            };
+                            for (let i = 0; i < cards.length; i++) {
+                                output.cards[cards[i].category].push(cards[i]);
+                            }
+                            res.status(200).send({ success: true, status: 200, message: "Experiment found", data: output });
+                        },
+                        (err) => {
+                            if (err) res.status(500).send(error.Database(err));
+                        });
+                } else {
+                    res.status(204).send(error.NoResults);
+                }
+            }, (err) => {
+                if (err) res.status(500).send(error.Database(err));
+            });
+
+    })
 .get("/user/:user", (req, res) => {
   if (req.params.name) {
     var username = req.params.name;

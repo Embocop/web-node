@@ -1,0 +1,371 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+@import url('global.css');
+@import url('cards.css');
+@import url('toolbar.css');
+
+body {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#main { 
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    overflow-x: hidden;
+    z-index: 100;
+}
+
+#curtain {
+    background: #0071c1 !important;
+    position: relative;
+    height: 100%;
+    width: 50%;
+    float: left;
+    z-index: 1000;
+}
+
+
+
+#app {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding-left: 80px;
+    z-index: 50;
+    overflow: hidden;
+}
+
+#appbody {
+    position: relative;
+    display: block;
+    float:left;
+    width: calc(50% - 245px);
+    margin-left: 30px;
+    overflow-y: scroll;
+    height: 100%;
+    transition: width 0.5s;
+    overflow-x:hidden;
+}
+
+.experiment-container {
+    width: 600%;
+    position:relative;
+    left: 0;
+    transition: left 0.5s;
+    overflow: hidden;
+}
+
+.experiment-container .experiment-container-sub {
+    width: 16.66%;
+    position:relative;
+    float:left;
+    text-align:center;
+}
+
+.experiment-container-sub button.new-card-button {
+    background: transparent;
+    border: none;
+    font-weight: 500;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    color: #BBB;
+    padding: 20px;
+    font-size: 20px;
+    display: block;
+}
+    .experiment-container-sub button.new-card-button + ul {
+        background: #FFF;
+        position: relative;
+        font-size: 16px;
+        padding: 0 !important;
+        display: inline-block;
+        margin: 0 auto;
+        z-index: 800;
+        list-style-type: none;
+        transition: transform 0.5s;
+        transform: scaleY(0);
+        min-width: 200px;
+    }
+        .experiment-container-sub button.new-card-button + ul li {
+            padding: 5px;
+            padding: 10px 20px;
+            text-align: left;
+            cursor: pointer;
+            background: #fff;
+        }
+        .experiment-container-sub button.new-card-button + ul li:hover {
+            background: #DDD;
+        }
+
+.experiment-container-sub button.new-card-button:hover {
+    background: #E8E8E8;
+}
+
+.stick-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100% !important;
+    background-color: #0071c1;
+    padding: 20px 30px !important;
+    z-index: 100;
+}
+
+.row:not(#filter):(.not) {
+    margin-bottom: 50px !important;
+}
+
+.vertical-container {
+    position: relative;
+}
+
+#nav {
+    background: #0071c1;
+    width: 100%;
+    color: #f8f8f8;
+    font-weight: 600;
+    overflow: hidden;
+    margin-bottom: 20px;
+    font-family: "Ubuntu", sans-serif;
+    border-right: 3px solid #CCC;
+    border-bottom: 3px solid #CCC;
+    transition: all 1s;
+    -webkit-transition: all 1s;
+}
+
+.relative {
+    position: relative;
+}
+
+.glued {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+.active {
+    border-color: #fff !important;
+}
+
+#nav span.first {
+    margin-left: 5px;
+}
+
+#nav span {
+    display: block;
+    padding: 15px 10px;
+    margin-right: 5px;
+    float: left;
+    font-size: 18px;
+    transition: border-color 0.5s;
+    cursor: pointer;
+    border-bottom: 5px solid transparent;
+}
+
+    #nav span:hover {
+        border-color: #fff;
+    }
+
+#placeholder {
+    position: relative;
+}
+
+.no-style {
+    text-decoration: none;
+    color: inherit !important;
+}
+
+#filter {
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 900;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+}
+
+#popup {
+    background: #fff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative !important;
+    top: 50% !important;
+    -webkit-transform: translateY(-50%) !important;
+    transform: translateY(-50%) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    float: none !important;
+    margin-bottom: 0 !important;
+}
+
+#footer {
+    margin-top: 20px;
+}
+
+#login {
+    display: none;
+    margin-left:auto;
+    margin-right: auto;
+    width: 250px;
+    position:relative;
+}
+
+#input-container {
+    display:inline-block;
+    display:table-cell;
+}
+
+#button-container {
+    display: table-cell;
+    color: #fff;
+    font-size: 36px;
+    position: relative;
+    margin-left: 15px;
+    top: 0;
+    left: 0;
+    transition: left 0.5s;
+    cursor: pointer;
+    margin-top: 10px;
+    vertical-align: middle;
+}
+
+#button-container i {
+    vertical-align: middle;
+    padding-left: 15px;
+}
+
+#button-container:hover {
+    left: 10px;
+}
+
+#username-container {
+    position:relative;
+    height:50px;
+    min-width: 200px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+}
+
+#username-container #username-placeholder {
+    transition: all 0.5s !important;
+    top: 0;
+    left: 0;
+}
+
+#username-container.hover:hover #username-placeholder {
+    top: -35px;
+    left: -55px;
+    color: white;
+    font-size: 18px;
+}
+
+#username-container.active #username-placeholder {
+    top: -35px;
+    left: -55px;
+    color: white;
+    font-size: 18px;
+}
+
+#username {
+    background: #fff;
+    font-size: 20px;
+    display: inline-block;
+    min-width: 200px;
+    padding: 10px;
+}
+
+#username-placeholder {
+    position:absolute;
+    width:100%;
+    padding:10px;
+    font-size:20px;
+    text-align:center;
+}
+
+#password-container {
+    position: relative;
+    height: 50px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    transition: margin-top 0.5s;
+}
+
+#password-container #password-placeholder {
+    transition: all 0.5s !important;
+    top: 0;
+    left: 0;
+}
+
+#password-container.hover:hover #password-placeholder {
+    top: -35px;
+    left: -55px;
+    color: white;
+    font-size: 18px;
+}
+
+#password-container.hover:hover {
+    margin-top: 25px;
+}
+
+#password-container.active #password-placeholder {
+    top: -35px;
+    left: -55px;
+    color: white;
+    font-size: 18px;
+}
+
+#password-container.active {
+    margin-top: 25px;
+}
+
+#password {
+    background: #fff;
+    font-size: 20px;
+    display: inline-block;
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    border: 0;
+}
+
+#password-placeholder {
+    position: absolute;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#loading {
+    animation: pulse 2s infinite;
+    position: relative;
+    left: 15px;
+}
+
+@keyframes pulse{
+    from {
+        transform: scale(0.95);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    to {
+        transform: scale(0.95);
+    }
+}

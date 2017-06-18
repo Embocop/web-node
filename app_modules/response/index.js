@@ -54,7 +54,7 @@ module.exports.error.IncompleteRequest = {
 };
 
 module.exports.error.NoResults = {
-  success : false,
+  success : true,
   status : 204,
   error : {
     type : "NoResults",

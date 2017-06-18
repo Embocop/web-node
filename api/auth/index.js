@@ -8,27 +8,53 @@ const error       = response.error;
 var bcrypt        = require('bcrypt');
 
 router.post('/login', (req, res) => {
-  var fields = ["Username", "Password"];
-  var credentials = auth.verifyFields(req.body, fields);
+    const fields = ["username", "password"],
+        cookie = req.body.remember;
+    var credentials = auth.requireFields(req.body, fields);
 
-  var successcallback = function (data) {
-    var user = data[0];
-    console.log(user);
-    auth.testPassword(credentials.Password, user.Password, res, () => {
-      delete user.Password;
-      delete user._id;
-      delete user._v;
-      var token = auth.createToken(user, { expiresIn: "7d" });
-      res.status(200).send({success: true, status: 200, token: token});
-    });
-  }
-  var nonecallback = function () {
-    res.status(400).send(error.NoUsers);
-  }
+    const successcallback = function (user) {
+        if (user.length > 0) {
+            auth.testPassword(credentials.password, user[0].password, res, () => {
+                delete user[0].password;
+                const token = auth.createToken(user[0], { expiresIn: "7d" });
+                if (cookie) {
+                    res.cookie('usertoken', token, { maxAge: 604800, httpOnly: true });
+                };
+                res.status(200).send({ success: true, status: 200, token: token });
+            });
+        } else {
+            nonecallback();
+        }
+    }
+    const nonecallback = function () {
+        res.status(400).send(error.NoUsers);
+    }
+    const failcallback = function (err) {
+        res.status(400).send(error.Database(err));
+    }
 
-  var dbcallback = db.dbCallback(res, {success: successcallback, none: nonecallback});
-  
-  db.User.find({Username : credentials.Username}, dbcallback);
+    if (credentials && credentials.username) {
+        db.connection
+            .where({ username: credentials.username })
+            .select("username", "uid", "password", "email", "role")
+            .from("users")
+            .then(successcallback, failcallback);
+    } else {
+        res.status(400).send(error.IncompleteRequest);
+    }
+})
+    .post('/logout', (req, res) => {
+        auth.userverification(req, res, () => {
+            res.clearCookie("usertoken");
+            res.status(200).send({ success: true, status: 200 });
+        });
+    })
+    .post("/verify", (req, res) => {
+        const success = function () {
+            res.status(200).send({ success: true, status: 200, user: req.decoded });
+        }
+
+        auth.userverification(req, res, success);
 
 });
 

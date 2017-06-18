@@ -7,24 +7,69 @@ var error         = response.error;
 //router.use(/^\/.+$/, auth.userverification);
 
 router.post('/', (req, res) => {
-  var user = new db.User(req.body);
-  var hashCallback = function(hash) {
-    user.Password = hash;
-    user.save((err) => {
-      if (err) {
-        res.status(500).send(error.Database(err));
-        //throw err;
-      } else {
-        res.status(201).send({ success: true, status : 201, message: "User created successfully!" });
-      }
-    });
-  };
-  if (user.Password) {
-    auth.createPasswordHash(user.Password, hashCallback);
-  } else {
-    res.status(400).send(error.IncompleteRequest);
-  }
+    const required = ["username", "email", "first", "last", "password", "role"];
+    var user = auth.requireFields(req.body, required);     
+
+    const hashCallback = function (hash) {
+        user.password = hash;
+        
+        db.connection("users")
+            .insert(user)
+            .returning("uid")
+            .then(() => {
+                res.status(201).send({ success: true, status: 201, message: "User created successfully!" });
+            },
+            (err) => {
+                res.status(500).send(error.Database(err));
+            });
+    };
+    if (user && user.password) {
+        auth.createPasswordHash(user.password, hashCallback);
+    } else {
+        res.status(400).send(error.IncompleteRequest);
+    }
 })
+    .get("/feed", (req, res) => {
+        const limit = req.query.limit || 10,
+            offset = req.query.offset || 0;
+        db.connection("changes")
+            .join('feed', 'feed.fid', '=', 'changes.fid')
+            .select()
+            .limit(limit)
+            .offset(offset)
+            .orderBy('timestamp', 'asc')
+            .then((response) => {
+                let data = {};
+                for (let i = 0; i < response.length; i++) {
+                    if (data[response[i].fid]) {
+                        data[response[i].fid].changes[response[i].property] = {
+                            old: response[i].old,
+                            new: response[i].new,
+                            property: response[i].property
+                        };
+                    } else {
+                        data[response[i].fid] = {
+                            author: response[i].author,
+                            table: response[i].table,
+                            timestamp: response[i].timestamp,
+                            fid: response[i].fid,
+                            method: response[i].method,
+                            changes: {}
+                        };
+                        data[response[i].fid].changes[response[i].property] = {
+                            old: response[i].old,
+                            new: response[i].new,
+                            property: response[i].property
+                        }
+                    }
+                    //data[response[i].fid] = response[i];
+                }
+                res.status(200).send({ success: true, status: 200, message: "User feed", data: data });
+            },
+            (err) => {
+                res.status(500).send(error.Database(err)); 
+            });
+    })
 .get('/username/:username', (req, res) => {
   var username = req.params.username;
   var nonecallback = function() { res.status(400).send(error.NoUsers); }
