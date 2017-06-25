@@ -1,4 +1,3 @@
-var mailing_list  = require("./add_subscriber");
 var experiment    = require("./experiment");
 var user          = require("./user");
 var authapi       = require("./auth");
@@ -10,7 +9,6 @@ var router        = require("express").Router();
 //TODO: Uncomment out for production
 //router.use(auth.appverification);
 
-router.use("/add_subscriber", mailing_list);
 router.use("/experiment", experiment);
 router.use("/user", user);
 router.use("/auth", authapi);

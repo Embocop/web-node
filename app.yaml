@@ -18,9 +18,10 @@ env: flex
 skip_files:
   - .vs/
 env_variables:
-  MYSQL_USER: root
-  MYSQL_PASSWORD: 5q3GJmrCnO062NIt
-  MYSQL_DATABASE: beta
+  SQL_USER: root
+  SQL_PASSWORD: 5q3GJmrCnO062NIt
+  SQL_DATABASE: beta
+  SQL_CLIENT: mysql
   # e.g. my-awesome-project:us-central1:my-cloud-sql-instance
   INSTANCE_CONNECTION_NAME: nodal-pixel-165113:us-east1:sqldb
 beta_settings:

@@ -192,7 +192,7 @@ newExperiment.addEventListener("click", () => {
 
     body.appendChild(name);
     body.appendChild(nameLabel);
-
+    
     descriptionLabel.innerHTML = "Experiment Description";
     description.rows = "1";
     body.appendChild(description);
@@ -228,6 +228,7 @@ myExperiments.addEventListener("click", () => {
             prev = subtoolbar.getChildByClass("selected experiment-entry");
             if (prev.length > 0) prev[0].className = "option";
             entry.className += " selected";
+            appbody.removeAllChildren();
             experiments.loadExperiment(entry.getAttribute("data-exid"), (experiment) => {
                 appbody.appendChild(experiment);
             });

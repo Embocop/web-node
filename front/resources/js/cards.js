@@ -55,10 +55,24 @@ module.exports.createCard = function (title, tools, contents, image) {
     card.appendChild(heading);
     card.appendChild(body);
 
-    card["setToolCallback"] = function (t, callback) {
+    card.body = body;
+    card.heading = heading;
+    card.title = headingText;
+
+    card.setToolCallback = function (t, callback) {
         tooling[t].addEventListener("click", () => {
             callback(card, tooling[t]);
         });
+    };
+
+    card.hideTool = function (t) {
+        tooling[t].style.display = "none";
+        return card;
+    };
+
+    card.showTool = function (t) {
+        tooling[t].style.display = "initial";
+        return card;
     };
 
     card["setTitle"] = function (t) {

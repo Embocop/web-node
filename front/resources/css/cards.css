@@ -56,6 +56,7 @@
     padding: 5px;
     font-family: "Helvetica", sans-serif;
     font-size: 20px;
+    text-align: left;
 }
 
     .card-body textarea {
@@ -133,6 +134,10 @@
     .card-body .sub {
         font-size: 16px;
         font-weight: 200;
+    }
+
+    .card-body p {
+        margin-bottom: 0;
     }
 
 .imaged .card-image-header img {

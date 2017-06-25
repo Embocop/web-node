@@ -3,6 +3,15 @@
 module.exports.configure = function (modules) {
     const timing = modules.timing;
 
+    Array.prototype.inArray = function (needle) {
+        for (let i = 0; i < this.length; i++) {
+            if (this[i] === needle) {
+                return true;
+            }
+        }
+        return false;
+    };
+
     String.prototype.replaceAll = function (search, replacement) {
         const target = this;
         return target.replace(new RegExp(search, 'g'), replacement);
@@ -10,6 +19,11 @@ module.exports.configure = function (modules) {
 
     String.prototype.capitalize = function () {
         return this.charAt(0).toUpperCase() + this.slice(1);
+    }
+
+    String.prototype.toTitleCase = function ()
+    {
+        return this.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     }
 
     HTMLElement.prototype.getChildByClass = function (classname) {

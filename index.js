@@ -10,12 +10,15 @@ const http          = require("http").Server(app);
 const morgan        = require("morgan");
 const io            = require("socket.io")(http);
 const compression   = require("compression");
-//const config        = require("./config.json");
 const cookie = require("cookie-parser");
 const process = require('process');
 const Knex = require('knex');
 const subdomain = require('express-subdomain');
-var knexLogger = require('knex-logger');
+
+// DEVELOPMENT
+const knexLogger = require('knex-logger');
+
+app.enable('trust proxy');
 
 // Configurations 
 const appInfo = require("./data/app.json");
@@ -46,8 +49,8 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cookie());
 
 // FOR DEVELOPMENT ONLY
-app.use(morgan('dev'));
-//app.use(knexLogger(db.connection));
+//app.use(morgan('dev'));
+app.use(knexLogger(db.connection));
 
 // Render engine for Pug -> HTML
 app.set("view engine", "pug");

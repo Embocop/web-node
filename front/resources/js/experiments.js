@@ -1,6 +1,9 @@
-const http = require("./http.js");
-const cards = require("./cards.js");
-const autosize = require("autosize");
+const http = require("./http.js"),
+    cards = require("./cards.js"),
+    autosize = require("autosize");
+
+const textTypes = ["background", "experimental-problem", "hypothesis", "conclusion"],
+    variableTypes = ["independent-variable", "dependent-variable", "controlled-variable"];
 
 function createExperimentEntry(name, id, image) {
     let image_path = image || '/images/placeholder.png';
@@ -14,17 +17,22 @@ function createExperimentEntry(name, id, image) {
 }
 
 function createExpCard(datacard) {
-    const card = cards.createCard(data.type, ["delete"], card.contents);
+    if (datacard.type) 
+    const card = cards.createCard(datacard.name.replace("-", " ").toTitleCase(), ["delete", "edit"], datacard.contents);
+    card.className += " " + datacard.name.replace(" ", "-");
+    card.setToolCallback("edit", () => {
+        card.hideTool("edit").showTool("save");
+    });
     return card;
 }
 
-function createNewCardButton(page, parent) {
+function createNewCardButton(page, parent, id) {
     const options = {
         problem: ["Background", "Experimental Problem", "Independent Variable", "Dependent Variable"],
         hypothesis: ["Hypothesis", "Mathematic Correlation", "Qualitative Causality"],
         materials: ["Material"],
-        procedure: ["Trials", "Groups", "Procedure"], 
-        analysis: ["Line Chart", "Scatter Plot", "Column Chart", "Statistical Test"],
+        procedure: ["Trials", "Groups", "Procedure", "Controlled Variable"], 
+        dataanalysis: ["Line Chart", "Scatter Plot", "Column Chart", "Statistical Test"],
         conclusion: ["Conclusion"]
     };
 
@@ -37,16 +45,27 @@ function createNewCardButton(page, parent) {
         const item = document.createElement("li");
         item.innerHTML = options[page][i];
         item.addEventListener("mousedown", () => {
+
             const textarea = document.createElement("textarea"),
-                card = cards.createCard(options[page][i], ["delete", "save"], textarea);
+                card = cards.createCard(options[page][i], ["delete", "save", "edit"], textarea);
 
             textarea.placeholder = "Write something";
             textarea.rows = "1";
             autosize(textarea);
 
             card.setToolCallback("save", (card, tool) => {
-                tool.className = "fa fa-pencil";
+                card.hideTool("save").showTool("edit");
+                module.exports.saveCard(card, page);
             });
+
+            card.setToolCallback("edit", (card, tool) => {
+                card.showTool("save").hideTool("edit");
+            });
+
+            card.hideTool("edit");
+
+            card.className += " " + options[page][i].toLowerCase().replace(" ", "-");
+            card.setAttribute("data-exid", id);
 
             parent.insertBefore(card, container);
         });
@@ -75,6 +94,32 @@ function createNewCardButton(page, parent) {
     container.appendChild(menu);
 
     return container;
+}
+
+module.exports.saveCard = function (card, page) {
+    const classes = card.className.split(" "),
+        type = classes[classes.length - 1];
+
+    if (textTypes.inArray(type)) {
+        const content = card.getElementsByTagName("textarea")[0].value,
+            id = card.getAttribute("data-exid");
+
+        const data = {
+            name: type,
+            contents: content,
+            category: page,
+            exid: id
+        };
+        
+        http.post("experiment/card/", data,
+            (response) => {
+                card.body.removeAllChildren();
+                card.body.innerHTML = "<p>" + content.replace("\n", "</p><p>"); + "</p>";
+            },
+            (err) => {
+                if (err) console.error(err);
+            });
+    }
 }
 
 module.exports.createExperiment = function (name, description, card) {
@@ -126,56 +171,28 @@ module.exports.getExperimentById = function (id, callback) {
 
 module.exports.loadExperiment = function (id, callback) {
     module.exports.getExperimentById(id, (experiment) => {
-        const container = document.createElement("div"),
-            problem = document.createElement("div"),
-            hypothesis = document.createElement("div"),
-            materials = document.createElement("div"),
-            procedure = document.createElement("div"),
-            analysis = document.createElement("div"),
-            conclusion = document.createElement("div");
+        const container = document.createElement("div");
+        const pages = {
+            problem: document.createElement("div"),
+            hypothesis: document.createElement("div"),
+            materials: document.createElement("div"),
+            procedure: document.createElement("div"),
+            dataanalysis: document.createElement("div"),
+            conclusion: document.createElement("div")
+        };
 
-        problem.className = "experiment-container-sub";
-        
-        for (let i = 0; i < experiment.cards.problem.length; i++) {
-            createExpCard(experiment.cards.problem[i]);
-        }
-        problem.appendChild(createNewCardButton("problem", problem));
-        container.appendChild(problem);
+        for (key in pages) {
+            if (pages.hasOwnProperty(key)) {
+                const page = pages[key];
+                page.className = "experiment-container-sub";
 
-        hypothesis.className = "experiment-container-sub";
-        for (let i = 0; i < experiment.cards.hypothesis.length; i++) {
-            createExpCard(experiment.cards.hypothesis[i]);
+                for (let i = 0; i < experiment.cards[key].length; i++) {
+                    page.appendChild(createExpCard(experiment.cards[key][i]));
+                }
+                page.appendChild(createNewCardButton(key, page, id));
+                container.appendChild(page);
+            }
         }
-        hypothesis.appendChild(createNewCardButton("hypothesis", hypothesis));
-        container.appendChild(hypothesis);
-
-        materials.className = "experiment-container-sub";
-        for (let i = 0; i < experiment.cards.materials.length; i++) {
-            createExpCard(experiment.cards.materials[i]);
-        }
-        materials.appendChild(createNewCardButton("materials", materials));
-        container.appendChild(materials);
-
-        procedure.className = "experiment-container-sub";
-        for (let i = 0; i < experiment.cards.procedure.length; i++) {
-            createExpCard(experiment.cards.procedure[i]);
-        }
-        procedure.appendChild(createNewCardButton("procedure", procedure));
-        container.appendChild(procedure);
-
-        analysis.className = "experiment-container-sub";
-        for (let i = 0; i < experiment.cards.dataanalysis.length; i++) {
-            createExpCard(experiment.cards.dataanalysis[i]);
-        }
-        analysis.appendChild(createNewCardButton("analysis", analysis));
-        container.appendChild(analysis);
-
-        conclusion.className = "experiment-container-sub";
-        for (let i = 0; i < experiment.cards.conclusion.length; i++) {
-            createExpCard(experiment.cards.conclusion[i]);
-        }
-        conclusion.appendChild(createNewCardButton("conclusion", conclusion));
-        container.appendChild(conclusion);
 
         container.className = "experiment-container";
         container.setAttribute("id", "exp");
