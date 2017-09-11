@@ -1,0 +1,5 @@
+karma.conf.js
+src/static/js/*.spec.js
+src/static/js/**/*.spec.js
+node_modules/
+src/api/tg_modules/tg-database/index.js

@@ -1,0 +1,15 @@
+div#commentModal.modal.fade(tabindex="-1", role="dialog", aria-hidden="true")
+    div.modal-dialog
+        div.modal-content
+            div.modal-header Got a Response?
+            div.modal-body
+                form.form.center-block
+                    div.form-group
+                        textarea#comment-post.form-control.input-lg(autofocus="", placeholder="What's your comment?")
+            div.modal-footer
+                div
+                    button#btn-comment.btn.btn-primary.btn-sm(data-dismiss="modal", aria-hidden="true", style="background-color:#399FFF;border-color:#399FFF") Post
+                    ul.pull-left.list-inline
+                        li: a(href=""): i.glyphicon.glyphicon-upload
+                        li: a(href=""): i.glyphicon.glyphicon-map-marker
+                        li: a(href=""): i.glyphicon.glyphicon-user

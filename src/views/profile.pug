@@ -1,0 +1,138 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        meta(name='description', content='')
+        title trendGit
+        link(rel='icon', type='image/x-icon', href='/img/favicon.ico')
+        link(rel='stylesheet', type='text/css', href='/css/profile.css')
+    body
+        include includes/header.pug
+        .container
+            .row
+                .col-md-4.profile-left-div
+                    .hider asdlkajsdlkj
+                    .panel.panel-default
+                        .panel-body
+                            if my
+                                a.modal-toggle(data-toggle='modal', href='#edit-profile-modal', role='button', aria-haspopup='true', aria-expanded='false')
+                                    span.glyphicon.glyphicon-pencil.pull-right
+                            center
+                                -var path = "/img/profile/" + uid + ".png"
+                                img.profilepic(width="230", height="230", src= path, alt="")
+                            if !my && login
+                                div(style='position:relative;width:80%;margin:30px auto;')
+                                    -var follow_word = (follow_status=="followed") ? "Unfollow" : "Follow"
+                                    button#btn-follow.btn.btn-primary.btn-block(class=follow_status)= follow_word
+                            input#hidden-user-id(type='text', style='display:none;' value=uid)
+                            input#hidden-user-id-visit(type='text', style='display:none;')
+                            hr
+                            ul(style='list-style-type:none')
+                                li
+                                    h2
+                                        if name != ""
+                                            b= name
+                                        else if name == ""
+                                            b= username
+                                li
+                                    h3
+                                        i
+                                            | @
+                                            span#profile-user= username
+                            hr
+                            ul(style='list-style-type:none')
+                                li
+                                    b Followers: 
+                                    span#number-followers= followers
+                                li
+                                    br
+                                li
+                                    b Trend Rating: 
+                                    span.label.label-primary(style='cursor:pointer;')= rating
+                                li
+                                    br
+                                li
+                                    -var coolness_s = "Trend Score: " + coolness;
+                                    b= coolness_s
+                                li
+                                    br
+                                li
+                                    -var total_p = "Total Posts: " + posts;
+                                    b= total_p
+                                li
+                                    br
+                                li
+                                    -var date_r = "Date Registered: " + registered;
+                                    b= date_r
+                            hr
+                            ul(style='list-style-type:none')
+                                li
+                                    b Bio:
+                                li
+                                    p= bio
+                .col-md-8.profile-main.main
+                    .hider asdlkajsdlkj
+                    .panel.panel-default.fixed-profile-head.panel-control
+                        .panel-heading
+                            ul.nav.nav-pills
+                                li#profile-posts.filter.active(role='presentation')
+                                    a(href='javascript:void(0)') Posts
+                                if (my)
+                                    li#my-trend.filter(role='presentation')
+                                        a(href='#') My Trend
+                                li#statistics.filter(role='presentation')
+                                    a(href='#') Statistics
+                                li#following.filter(role='presentation')
+                                    a(href='javascript:void(0)') Following
+                                li.dropdown.pull-right(role='presentation')
+                                    a#sort.dropdown-toggle(data-toggle='dropdown', href='#', role='button', aria-haspopup='true', aria-expanded='false')
+                                        | Sort by&nbsp;
+                                        b
+                                            span#sort-filter Date Posted
+                                        span.caret
+                                    ul.dropdown-menu
+                                        // queries feed with appropriate sorting options
+                                        li
+                                            a(value='1', href='#') Date Posted
+                                        li
+                                            a(value='2', href='#') Popularity
+                                        li.hidden
+                                            a(href='#') Followed By You
+                                        li.hidden
+                                            a(href='#') Following You
+                    .space
+                    .profile-posts
+                    .my-trend
+                    .statistics
+                    .following
+        include includes/edit-profile-modal.pug
+        #commentModal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+            // Begin PostModal Div Class (Used for Post Pop up interface)
+            .modal-dialog
+                .modal-content
+                    .modal-header
+                        | Got a Response?
+                    .modal-body
+                        form.form.center-block
+                            .form-group
+                                textarea#comment-post.form-control.input-lg(autofocus='', placeholder="What's your comment?")
+                    .modal-footer
+                        div
+                            button#btn-comment.btn.btn-primary.btn-sm(data-dismiss='modal', aria-hidden='true', style='background-color:#399FFF;border-color:#399FFF') Post
+                            ul.pull-left.list-inline
+                                // upload pics, videos etc.
+                                li
+                                    a(href='')
+                                        i.glyphicon.glyphicon-upload
+                                // user can tag locations
+                                li
+                                    a(href='')
+                                        i.glyphicon.glyphicon-map-marker
+                                // anonymous mode on/off
+                                li
+                                    a(href='')
+                                        i.glyphicon.glyphicon-user
+        // End Post Modal
+        script(src='/js/profile.js')

@@ -1,0 +1,111 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        meta(name='description', content='')
+        title About Us
+        link(rel='icon', type='image/x-icon', href='/img/favicon.ico')
+        link(rel='stylesheet', href='/css/about.css', type='text/css')
+        body#page-top
+        nav#mainNav.navbar.navbar-default.navbar-fixed-top
+            .container-fluid
+                .navbar-header
+                    button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
+                        span.sr-only Toggle navigation
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a.navbar-brand.page-scroll(href='/index.php') Home
+                #bs-example-navbar-collapse-1.collapse.navbar-collapse
+                    ul.nav.navbar-nav.navbar-right
+                        li
+                            a.page-scroll(href='#about') About
+                        li
+                            a.page-scroll(href='#team') Team
+                        li
+                            a.page-scroll(href='#downloads') Downloads
+                        li
+                            a.page-scroll(href='#contact') Contact
+        header
+            .header-content
+                .header-content-inner
+                    a.btn.btn-primary.btn-xl.page-scroll(href='#about') Find Out More
+        section#about.bg-primary
+            .container
+                .row
+                    .col-lg-8.col-lg-offset-2.text-center
+                        h2.section-heading About Us
+                        hr.light
+                        p.text-faded Will be written later
+        section#team
+            .container
+                .row
+                    .col-lg-12.text-center
+                        h2.section-heading The Team
+                        hr.primary
+            .container
+                .row
+                    .col-lg-3.col-md-6.text-center
+                        .service-box
+                            i.fa.fa-4x.fa-diamond.wow.bounceIn.text-primary
+                            h3 Mohashin Azad
+                            p.text-muted Bio - will be updated later
+                    .col-lg-3.col-md-6.text-center
+                        .service-box
+                            i.fa.fa-4x.fa-paper-plane.wow.bounceIn.text-primary(data-wow-delay='.1s')
+                            h3 Kevin Lin
+                            p.text-muted Bio - will be updated later
+                    .col-lg-3.col-md-6.text-center
+                        .service-box
+                            i.fa.fa-4x.fa-newspaper-o.wow.bounceIn.text-primary(data-wow-delay='.2s')
+                            h3 Ying Fei Xie
+                            p.text-muted Bio - will be updated later
+                    .col-lg-3.col-md-6.text-center
+                        .service-box
+                            i.fa.fa-4x.fa-heart.wow.bounceIn.text-primary(data-wow-delay='.3s')
+                            h3 Alan Moy
+                            p.text-muted Bio - will be updated later
+        section#downloads.no-padding
+            .container-fluid
+                .row
+                    center
+                        h2.section-heading Downloads
+                    hr.primary
+                    .col-lg-6.col-sm-6
+                        a.portfolio-box(href='#')
+                            img.img-responsive(src='/img/apple.png')
+                            .portfolio-box-caption
+                                .portfolio-box-caption-content
+                                    .project-category.text-faded
+                                        | Download
+                                    .project-name
+                                        | Check out our iOS App!
+                    .col-lg-6.col-sm-6
+                        a.portfolio-box(href='#')
+                            img.img-responsive(src='/img/android.jpg')
+                            .portfolio-box-caption
+                                .portfolio-box-caption-content
+                                    .project-category.text-faded
+                                        | Download
+                                    .project-name
+                                        | Check out our Android App!
+        section#contact
+            .container
+                .row
+                    .col-lg-8.col-lg-offset-2.text-center
+                        h2.section-heading Contact
+                        hr.primary
+                        p For any questions, comments, or concerns, feel free to reach out to us!
+                    .col-lg-4.col-lg-offset-2.text-center
+                        i.fa.fa-phone.fa-3x.wow.bounceIn
+                        p P.O Box Address - TBD
+                    .col-lg-4.text-center
+                        p
+                            a(href='mailto:info@trendgit.com') info@trendgit.com
+        footer.footer
+            .container
+                center
+                    p.text-muted trendGit © 2015
+        script(src='/js/about.js')

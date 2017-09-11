@@ -1,0 +1,9 @@
+{
+    "database" : {
+        "dbhost": "TV-RDSD00.dev.trendgit.com",
+        "dbuser": "mysqlroot",
+        "dbpassword": "j*7w#2dW",
+        "dbdatabase": "trendgit",
+        "connectionLimit": 100
+    }
+}

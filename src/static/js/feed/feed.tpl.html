@@ -1,0 +1,38 @@
+<div class="panel main-panel">
+    <ul class="control">
+        <li class="select {{filter==0 ? 'active' : ''}}" ng-click="filter=0">NEARBY</li>
+        <li class="select {{filter==1 ? 'active' : ''}}" ng-click="filter=1">GLOBAL</li>
+        <li class="select {{l ? '' : 'disabled'}} {{filter==2 ? 'active' : ''}}" ng-click="filterChange()">FOLLOWING</li>
+        <li class="dropdown"><span class="label">Sort by</span><span class="content" ng-click="dropdown=!dropdown" ng-init="dropdown=false">{{sortName}}</span>
+            <ul class="dropdown-menu" ng-show="dropdown">
+                <li class="f"><a value="1" href="#" ng-click="sort='0'">Most Recent</a></li>
+                <li class="f"><a value="2" href="#" ng-click="sort='1'">Distance</a></li>
+                <li class="f"><a value="3" href="#" ng-click="sort='2'">Trending Quickly</a></li>
+            </ul>
+        </li>
+        <li class="select right" ng-click="newPost()"><i class="fa fa-plus-circle" aria-hidden="true"></i><span>&nbsp;POST</span></li>
+    </ul>
+</div>
+<div id="feed-body" class="col-md-6 main logged-out">
+    <div class="post panel" ng-repeat="x in posts track by x.id">
+        <div class = "img-container">
+            <img ng-src = "/img/profile/{{::x.relationships.author.id}}.png" onerror="this.onerror=null;this.src='/img/profile/default.png'"/>
+        </div>
+        <div class = "post-content" >
+            <div class="panel-header">
+                {{::x.relationships.author.attributes.username}}
+            </div>
+            <div class="panel-subheader">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                {{::x.attributes["post_time"] | date : 'MMM d, yyyy h:mm a'}}
+                &nbsp;&nbsp;
+                <i class="fa fa-globe" aria-hidden="true"></i>
+                {{::x.attributes.city}}, {{::x.attributes.country}}
+                &nbsp;&nbsp;
+                {{::x.attributes.distance | number : 1}} km away
+            </div>
+            <div class="panel-body" ng-bind-html="::x.attributes.content"></div>
+            <div class="panel-footer">Comment&nbsp;<i class="fa fa-commenting-o" aria-hidden="true"></i></div>
+        </div>
+    </div>
+</div>

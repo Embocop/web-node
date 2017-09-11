@@ -1,0 +1,26 @@
+{
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true,
+        "jquery": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:node/recommended",
+        "google"
+    ],
+    "plugins": ["node"],
+    "rules": {
+        "brace-style": ["error", "stroustrup"],
+        "linebreak-style": 0,
+        "max-len": ["error", {
+            "code": 100
+        }],
+        "node/no-unsupported-features": ["error", {
+            "version": 6,
+            "ignores": []
+        }],
+        "require-jsdoc": 0,
+    }
+}

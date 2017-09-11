@@ -1,0 +1,27 @@
+.post-main.panel.panel-default.post-animatediv(id="post" + pid,value=pid)
+    .panel-body
+    li.dropdown.pull-right(role="presentation", style="list-style-type:none")
+        a.dropdown-toggle(data-toggle="dropdown",href="#",role="button",aria-haspopup="true",aria-expanded="false")
+            span.caret
+        ul.dropdown-menu
+            li
+                a(href="#") Flag Post
+            li
+                a(href="#") Report User
+            li
+                a(href="#") Comment
+    a(href="/profile/" + username)
+        img.img-square.pull-left(src="/img/profile/" + uid + ".png",width=40,height=40,data-uid=uid)
+    a(href="/profile/" + username)
+        b= username
+    .font-light= post_time + ", " + city + ", " + "country" 
+        span.glyphicon.glyphicon-globe(style="color:#9197A0", data-toggle="tooltip", title=post_time)
+    .clearfix
+    .post-div
+    hr 
+    p= content
+    hr
+    .font-light
+        a#comment-modal(value="pid", name="post", href="#commentModal", data-toggle="modal") Comment
+        span#uptrend.glyphicon.custom-trend(style="color:#399FFF")
+        span.vote= vote

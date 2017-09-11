@@ -1,0 +1,41 @@
+<div id="postModal" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Anything trending?
+                <i class="fa fa-times" aria-hidden="true" ng-click="dismiss()"></i>
+            </div>
+            <div class="modal-body">
+                <form class="form center-block">
+                    <div class="form-group">
+                        <div id="trend-post-w" spellcheck="true" ng-model="content" contenteditable="true" placeholder="What's going on?" class="wissy-edit place-holder"></div>
+                        <textarea style="display:none" id="trend-post" autofocus="" placeholder="What's going on?" class="form-control input-lg"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div>
+                    <button id="btn-post" data-dismiss="modal" aria-hidden="true" class="btn btn-primary btn-sm" ng-click="submit()">POST</button>
+                    <ul class="pull-left list-inline">
+                        <li><a href=""><i class="fa fa-cloud-upload" aria-hidden="true"></i></a></li>
+                        <li><a href=""><i class="fa fa-map-marker" aria-hidden="true"></i></a></li>
+                        <li><a href=""><i class="fa fa-user-circle-o" aria-hidden="true"></i></a></li>
+                        <li><a href="javascript:void(0)"><i class="fa fa-bold" aria-hidden="true"></i></a></li>
+                        <li><a href="javascript:void(0)"><i class="fa fa-italic" aria-hidden="true"></i></a></li>
+                        <li><a href="javascript:void(0)"><i class="fa fa-underline" aria-hidden="true"></i></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                        <li>
+                            <select id="category">
+                                <option value="">SELECT A CATEGORY</option>
+                                <option value="spam">SPAM</option>
+                                <option value="lifestyle">LIFESTYLE</option>
+                                <option value="entertainment">ENTERTAINMENT</option>
+                                <option value="food">FOOD</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

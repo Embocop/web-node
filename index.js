@@ -1,98 +1,76 @@
-'use strict';
+// #####################################################################
+// Load resources
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const cookie = require('cookie-parser');
+const path = require('path');
+const less = require('express-less');
 
-global.__data = __dirname + '/data/';
-global.__app = __dirname + '/app_modules/';
-global.__top = __dirname + '/';
+// Log Requests for development in the console
+// TODO: Remove in production version
+// let morgan = require('morgan');
+// let knexLogger = require('knex-logger');
 
-const express       = require('express');
-const app           = express();
-const http          = require("http").Server(app);
-const morgan        = require("morgan");
-const io            = require("socket.io")(http);
-const compression   = require("compression");
-const cookie = require("cookie-parser");
-const process = require('process');
-const Knex = require('knex');
-const subdomain = require('express-subdomain');
+let routes;
+let port;
+if(app.get('env') === 'production') {
+    routes = require('./dist/api/bundled');
+    port = 8081;
 
-// DEVELOPMENT
-const knexLogger = require('knex-logger');
+    app.set('views', path.resolve(__dirname, 'dist', 'web', 'views'));
 
-app.enable('trust proxy');
+    app.use(express.static(path.join(__dirname, 'dist', 'web', 'static')));
+} else {
+    const webpack = require('webpack');
+    const webpackDevMiddleware = require('webpack-dev-middleware');
+    const webpackHotMiddleware = require('webpack-hot-middleware');
+    const config = require('./webpack.dev.config');
+    const compiler = webpack(config);
 
-// Configurations 
-const appInfo = require("./data/app.json");
+    routes = require('./src/api/index.js');
+    port = 3000;
 
-// Routes
-const router = require("./routes/index.js");
-const apiSubRoute = require("./api/index.js");
-const betaSubRoute = require("./routes/front/platform/beta/index.js");
+    app.set('views', path.resolve(__dirname, 'src', 'views'));
 
-var bodyParser    = require('body-parser');
+    app.use(webpackDevMiddleware(compiler, {
+        publicPath: config.output.publicPath,
+        stats: {
+            colors: true,
+        },
+    }));
 
-const db          = require(__app + "db");
-let knex
+    app.use(webpackHotMiddleware(compiler, {
+        log: console.log,
+    }));
+}
 
-//DEVELOPMENT SQL CONNECTION
-app.enable('trust proxy');
+app.set('view engine', 'pug');
 
-//app.set("secret" , config.app.secret);
-
-// Configure db connect
-//db.configure(config.db);
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
-app.use(bodyParser.json({ limit: '50mb' }));
-// parse cookies
+// Enable bodyParser for POST requests
+app.use(bodyParser.urlencoded({
+    extended: true,
+}));
+app.use(bodyParser.json());
 app.use(cookie());
 
-// FOR DEVELOPMENT ONLY
-//app.use(morgan('dev'));
-app.use(knexLogger(db.connection));
+// Development request logging
+// TODO: Remove these lines in production release
+// app.use(morgan('dev'));
+// app.use(knexLogger(knex));
 
-// Render engine for Pug -> HTML
-app.set("view engine", "pug");
+// LESS Compiling
+app.use('/less', less(__dirname + '/src/static/less'));
 
+// Route handling
+app.use('/', routes);
 
-// Routing for main site
-app.use("/", router);
-// Subdomain routing
-app.use(subdomain("api", apiSubRoute));
-app.use(subdomain("beta", betaSubRoute));
+// ##########################################################################
+// Start server on specified port
 
-app.use('/css', express.static('front/resources/css'));
-app.use('/images', express.static('front/resources/images'));
-app.use('/js', express.static('front/resources/js'));
+let server = app.listen(port, function() {
+    let host = server.address().addressIO;
+    let port = server.address().port;
 
-// Start database connection
-// Get type of SQL client to use
-const sqlClient = process.env.SQL_CLIENT;
-
-if (sqlClient === 'pg' || sqlClient === 'mysql') {
-    knex = db.connection;
-} else {
-    throw new Error(`The SQL_CLIENT environment variable must be set to lowercase 'pg' or 'mysql'.`);
-}
-
-if (module === require.main) {
-  // [START server]
-  // Start the server
-  const server = app.listen(process.env.PORT || 8081, () => {
-    const port = server.address().port;
-    console.log(`App listening on port ${port}`);
-  });
-  // [END server]
-}
-
-http.listen(80);
-
-//io.on('connection', function (socket){
-//  socket.emit('news', {hello: 'world'});
-//  socket.on('my other event', function (data) {
-//    console.log(data);
-//  });
-//});
-
-module.exports = app;
+    console.log('Listening at http://%s:%s', host, port);
+});

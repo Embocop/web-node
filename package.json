@@ -4,17 +4,15 @@
   "description": "The Node.js server for Embocorp application",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
     "test": "console.log('Hello_world');",
-    "cover": "nyc --cache npm test; nyc report --reporter=html"
+    "build": "webpack",
+    "dev-server": "nodemon index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Embocorp/web-node.git"
   },
-  "keywords": [
-    "embocorp"
-  ],
   "author": "Theodore Kim",
   "license": "Apache-2.0",
   "bugs": {
@@ -23,22 +21,15 @@
   "homepage": "https://github.com/Embocorp/web-node#readme",
   "dependencies": {
     "autosize": "^3.0.21",
-    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
-    "compression": "^1.6.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.2",
-    "express-subdomain": "^1.0.5",
     "fs": "0.0.1-security",
     "jsonwebtoken": "^7.4.0",
     "knex": "^0.13.0",
     "lodash": "^4.17.4",
     "morgan": "^1.8.1",
-    "mysql": "^2.13.0",
-    "nodemailer": "^4.0.1",
-    "pug": "^2.0.0-beta.12",
-    "socket.io": "^1.7.3",
-    "underscore": "^1.8.3"
+    "webpack": "^3.5.6"
   },
   "engines": {
     "node": ">=4.3.2"

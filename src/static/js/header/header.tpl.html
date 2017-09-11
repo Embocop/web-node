@@ -1,0 +1,25 @@
+<nav class="navbar navbar-default navbar-fixed-top filler">
+    <div class="navbar-header">
+        <img src="/img/logo.png" class="logo navbar-left"/>
+        <img src="/img/hint.png" class="hint-bottom hint"/>
+        <img src="/img/arrow.png" class="hint-side hint"/>
+        <form class="navbar-search-form">
+            <button type="submit" class="btn btn-default btn-search search-btn"><i class="fa fa-search"></i></button>
+            <input id="navbar-search" type="text" placeholder="Let's search for some" size = "15" class="form-control"/>
+            <button type="button" class="btn btn-default dropdown-toggle search-btn">posts&nbsp;<i class="fa fa-caret-down"></i></button>
+            <ul class="dropdown-menu">
+                <li><a value="1" href="#" class="active-filter">POSTS</a></li>
+                <li><a value="2" href="#">Category</a></li>
+                <li><a value="3" href="#">Users</a></li>
+                <li><a value="4" href="#">Keywords</a></li>
+                <li><a value="5" href="#">Location</a></li>
+            </ul>
+        </form>
+        <div class="right-buttons">
+            <button id="login" class="btn navbar-right hvr-underline-from-center" ng-click="login()">Login | Register</button>
+            <button id="profile-btn" class="btn hvr-underline-from-center">Profile</button>
+            <button id="home" class="btn hvr-underline-from-center">Feed</button>
+            <button id="logout" class="btn hvr-underline-from-center" ng-click="logout()">Logout</button>
+        </div>
+    </div>
+</nav>

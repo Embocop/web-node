@@ -1,1 +1,0 @@
-console.error("Error: Parsing file C:\\Users\\Iggy\\Documents\\embi\\web-node\\front\\resources\\js\\experiments.js: Unexpected token (21:4)");

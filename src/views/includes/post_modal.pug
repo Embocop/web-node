@@ -1,0 +1,28 @@
+div(id="postModal", class="modal fade", tabindex="-1", role="dialog", aria-hidden="true")
+    div(class="modal-dialog")
+        div(class="modal-content")
+            div(class="modal-header")
+                Anything trending?
+            div(class="modal-body")
+                form(class="form center-block")
+                    div(class="form-group")
+                        div(class="wissy-edit place-holder", id = "trend-post-w", spellcheck="true", contentEditable="true", placeholder ="What's going on?")
+                        textarea(style="display:none", id="trend-post", class="form-control input-lg", autofocus="", placeholder="What's going on?")
+            div(class="modal-footer")
+                div
+                    button(id="btn-post" class="btn btn-primary btn-sm" data-dismiss="modal" aria-hidden="true" style="background-color:#399FFF;border-color:#399FFF") Post
+                    ul(class="pull-left list-inline")
+                        li: a(href=""): i(class="glyphicon glyphicon-upload")
+                        li: a(href=""): i(class="glyphicon glyphicon-map-marker")
+                        li: a(href=""): i(class="glyphicon glyphicon-user")
+                        li: a(href="javascript:void(0)"): i(class="glyphicon bold") B
+                        li: a(href="javascript:void(0)"): i(class="glyphicon italic") I
+                        li: a(href="javascript:void(0)"): i(class="glyphicon underline") U
+                        li &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        li
+                            select(id = "category")
+                                option(value="") SELECT A CATEGORY
+                                option(value="spam") SPAM
+                                option(value="lifestyle") LIFESTYLE
+                                option(value="entertainment") ENTERTAINMENT
+                                option(value="food") FOOD

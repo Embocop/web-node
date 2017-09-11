@@ -1,0 +1,79 @@
+#tutorial-canvas {
+    z-index: 9997;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+}
+
+.tutorial-filter {
+    position: fixed;
+    background-color: transparent;
+    box-shadow: 0 0 0 99999px rgba(0, 0, 0, .7);
+}
+
+.highlight-body {
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+}
+
+.title {
+    font-size: 30px;
+    width: 60%;
+    color: #fff;
+    position: absolute;
+    padding: 25px;
+}
+
+.title-centered {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.title-bottom-left {
+    bottom: 10%;
+    left: 10%;
+}
+
+.title-top-left {
+    top: 10%;
+    left: 10%;
+}
+
+.btn-tutorial {
+    position: absolute !important;
+    font-size: 18px !important;
+    right: 100px !important;
+    bottom: 100px !important;
+    -webkit-transition: color 0.5s;
+    transition: all 0.5s;
+    background-color: #399FFF !important;
+    border-color: #399FFF !important;
+}
+
+.btn-tutorial:hover {
+    background-color: transparent !important;
+    border-width: 10px;
+    right: 90px !important;
+    bottom: 90px !important;
+}
+
+.tutorial-frame {
+    display: none;
+}
+
+.active-frame {
+    display: block !important;
+}
+
+.black {
+    background-color: rgba(0, 0, 0, 0.7);
+}

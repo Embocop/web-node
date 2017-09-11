@@ -1,0 +1,990 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        title trendGit
+        meta(name='description', content='')
+        // Need to put description about something later on
+        link(rel='icon', type='image/x-icon', href='/img/favicon.ico')
+        link(rel='stylesheet', type='text/css', href='/css/promote.css')
+    body
+        include includes/header.pug
+        .container
+            .row
+                #feedback-modal.modal.fade.modal(tabindex='-1', role='dialog')
+                    // Begin Feedback Modal
+                    .modal-dialog
+                        .modal-content
+                            form
+                                .modal-header
+                                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                        span(aria-hidden='true') ×
+                                    h4.modal-title.text-center Any questions, comments, or feedback?
+                                .modal-body
+                                    .content-fluid
+                                        .row
+                                            .col-md-12
+                                                .form-group
+                                                    .col-sm-2
+                                                        label.control-label.feedback-label(for='email') Email
+                                                    .col-sm-10
+                                                        input#email.feedback-input(type='email', name='email', value='')
+                                                .form-group
+                                                    label.col-sm-2.control-label.feedback-label(for='message') Message
+                                                    .col-sm-10
+                                                        textarea#feedback.feedback-input(rows='4', name='message')
+                                            .form-group
+                                                .col-sm-10.col-sm-offset-2
+                                                    input#submit.btn.btn-primary.pull-right(name='submit', type='submit', value='Send', style='background-color:#399FFF;border-color:#399FFF')
+                // End feedback Modal
+                #intro-modal.modal.fade.modal(tabindex='-1', role='dialog')
+                    // Begin Feedback Modal
+                    .modal-dialog
+                        .modal-content
+                            form
+                                .modal-header
+                                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                        span(aria-hidden='true') ×
+                                    h4.modal-title.text-center Thank you for choosing to advetrise with trendGit!
+                                .modal-body
+                                    .content-fluid
+                                        .row
+                                            div(style='padding:20px;width:100%;')
+                                                p
+                                                    | Thank you for your interest in advertising on trendGit.com!  Advertising with us presents a unique opportunity,
+                                                    | whether you are an individual, nonprofit, or a business (both big and small).  With trendGit, only reach those people
+                                                    | whom are most likely to answer your calling.  Its easy, cheap, and efficient! Please fill out the following
+                                                    | information to help up figure out who you want your message to reach!  If this is your first time advertising with
+                                                    | trendGit, be sure to check out how it works
+                                                    a#tutorial(href='#') here!
+                                                br
+                                                button.btn.btn-primary(type='button', data-dismiss='modal', aria-label='Close') I got it!
+                // End intrso Modal
+                #package-modal.modal.fade.modal(tabindex='-1', role='dialog')
+                    // Begin Feedback Modal
+                    .modal-dialog
+                        .modal-content
+                            form
+                                .modal-header
+                                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                        span(aria-hidden='true') ×
+                                    h4.modal-title.text-center trendGit Advertisement Levels and Pricing
+                                .modal-body
+                                    .content-fluid
+                                        .row
+                                            div(style='padding:20px;width:100%;')
+                                                p
+                                                    | trendGit advertisement works on matching advertisments with users based on their behavior.
+                                                    | Pricing and how accurate that "matching process" works depends on which package you opt for.
+                                                    b CPL
+                                                    |  or
+                                                    b Cost Per Load
+                                                    |  is the amount of money that will be charged everytiume you ad is loaded onto a user's feed (which will only occur if your advertisement matches their trend).
+                                                    b CPC
+                                                    |  or
+                                                    b Cost Per Click
+                                                    |  is how much you will be charged when a user clicks on your post or a link within your post.
+                                                    b Keywords
+                                                    |  refer to how many keywords you are allowed to enter for your advertisement.  The more keywords means the better matched your ad will be to a user.  Finally,
+                                                    b Certainty
+                                                    |  refers to with what certainty the algorithm will match your ads to a user.  The lower the certainty, the more targetted / accurate your ads will be.
+                                                br
+                                                h3 Basic
+                                                p
+                                                    | Good for the basic advertiser who wants somewhat targetted advertisement on a cost effective budget.
+                                                p
+                                                    b CPL:
+                                                    |  $0.005
+                                                p
+                                                    b CPC:
+                                                    |  $0.10
+                                                p
+                                                    b Keywords:
+                                                    |  10
+                                                p
+                                                    b Certainty:
+                                                    |  10%
+                                                br
+                                                h3 Advanced
+                                                p
+                                                    | Good for the an advertiser who wants a more narrow target audience with more targetted advertisement with a modest budget.
+                                                p
+                                                    b CPL:
+                                                    |  $0.01
+                                                p
+                                                    b CPC:
+                                                    |  $1.25
+                                                p
+                                                    b Keywords:
+                                                    |  30
+                                                p
+                                                    b Certainty:
+                                                    |  7%
+                                                br
+                                                h3 Powerful
+                                                p
+                                                    | Good for an advertiser who wants extremely accurate and targetted advertisements.
+                                                p
+                                                    b CPL:
+                                                    |  $0.03
+                                                p
+                                                    b CPC:
+                                                    |  $0.50
+                                                p
+                                                    b Keywords:
+                                                    |  70
+                                                p
+                                                    b Certainty:
+                                                    |  4%
+                                                br
+                                                h3 Omniscent
+                                                p
+                                                    | Take advertisement to the next level. Omniscent advertisement will predict a user's future behavior to provide advertisements that are not only extremely accurate, but perfectly matched with the given user. Get business with every post using the Omniscent level
+                                                p
+                                                    b CPL:
+                                                    |  $0.05
+                                                p
+                                                    b CPC:
+                                                    |  $1.50
+                                                p
+                                                    b Keywords:
+                                                    |  200
+                                                p
+                                                    b Certainty:
+                                                    |  less than 1%
+                                                br
+                                                button.btn.btn-primary(type='button', data-dismiss='modal', aria-label='Close') I got it!
+                // End intrso Modal
+                #tutorial-canvas
+                    .tutorial-frame.frame1.active-frame
+                        .title.title-centered Hello there!  Welcome to trendGit!
+                        button#frame2.btn.btn-primary.btn-tutorial
+                            b Hello!
+                    .tutorial-frame.frame2
+                        .title.title-centered
+                            | What is trendGit you ask?
+                            br
+                            br
+                            | trendGit is a new type of website and app that uses your unique
+                            |               behavior, called a trend, to better serve your internet experience.
+                        button#frame3.btn.btn-primary.btn-tutorial
+                            b Huh?
+                    .tutorial-frame.frame3
+                        .title.title-centered Maybe it would be better if I show you what I mean.
+                        button#frame4.btn.btn-primary.btn-tutorial(value='Hide')
+                            b Show away!
+                    .tutorial-frame.frame4
+                        #highlight-body.tutorial-filter
+                        .title.title-bottom-left.black
+                            | This is your feed, it is personalized for you based on your browsing behavior (your trend)
+                        button#frame5.btn.btn-primary.btn-tutorial
+                            b OK...
+                    .tutorial-frame.frame5
+                        #highlight-feed-body.tutorial-filter
+                        .title.title-top-left.black
+                            | These are posts, the meat and potatos of trendGit, they are user generated "blurbs" of information.  They can be about anything!
+                        button#frame6.btn.btn-primary.btn-tutorial
+                            b I get it
+                    .tutorial-frame.frame6
+                        #highlight-feed-body.tutorial-filter
+                        .title.title-top-left.black
+                            | But beware! On trendGit, only useful information that other people may need will become popular. (So no funny cat videos)
+                        button#frame7.btn.btn-primary.btn-tutorial
+                            b I have been warned
+                    .tutorial-frame.frame7
+                        #highlight-uptrend.tutorial-filter
+                        .title.title-top-left
+                            | If you really like a post, you can "up-trend" it by clicking this button.  By doing so, you can both help us track your trend, but
+                            | also the popularity of the post and user who posted it.
+                        button#frame8.btn.btn-primary.btn-tutorial
+                            b I will do that
+                    .tutorial-frame.frame8
+                        #highlight-panel-control.tutorial-filter
+                        .title.title-bottom-left
+                            | You can filter your feed manually based on location and post time up here using the control panel
+                        button#frame9.btn.btn-primary.btn-tutorial
+                            b I understand
+                    .tutorial-frame.frame9
+                        #highlight-btn-post-modal.tutorial-filter
+                        .title.title-bottom-left
+                            | You can post here, but again, beware, you can only post once every hour so think carefully before posting
+                        button#frame10.btn.btn-primary.btn-tutorial
+                            b I have been warned
+                    .tutorial-frame.frame10
+                        #highlight-navbar-search.tutorial-filter
+                        .title.title-bottom-left
+                            | You can also search posts using this handy search bar.  Use the button to the left to help refine your searches.
+                        button#frame11.btn.btn-primary.btn-tutorial
+                            b Sounds Good!
+                    .tutorial-frame.frame11
+                        #highlight-right-buttons.tutorial-filter
+                        .title.title-top-left
+                            | If you have not already done so, you can make an account and login over here.
+                        button#frame12.btn.btn-primary.btn-tutorial
+                            b OK great!
+                    .tutorial-frame.frame12
+                        #highlight-cool-kids.tutorial-filter
+                        .title.title-bottom-left
+                            | Over here, we list the names of the cool kids on the block. Try to up your popularity by making posts that everyone can enjoy!
+                        button#frame13.btn.btn-primary.btn-tutorial
+                            b Sounds Good!
+                    .tutorial-frame.frame13
+                        #highlight-footer.tutorial-filter
+                        .title.title-centered
+                            | Other than that, I think you can figure it out from here. If you need more help, open up this tutorial again downhere.
+                        button#frame14.btn.btn-primary.btn-tutorial(value='Show')
+                            b Thank you!
+                    .tutorial-frame.frame14
+                        .title.title-centered
+                            | Just beware, we DO track your behavior on this site.  But, before you run screaming, "Big Brother," please know that we share you information with no one!  Learn more about how we use your information in our "Privacy and Terms."
+                        button#frame15.btn.btn-primary.btn-tutorial
+                            b OK
+                    .tutorial-frame.frame15
+                        .title.title-centered
+                            | Thanks for using trendGit.  Happy trending!
+                        button#frame16.btn.btn-primary.btn-tutorial(value='End')
+                            b I will
+                .hider asdlkajsdlkj
+                .col-md-9.main(style='padding-top:30px')
+                    form#business-ad-information
+                        #account-info.panel.panel-default
+                            .panel-heading
+                                h4
+                                    | Account Information
+                                    span#body-one-control.caret.minimize
+                            #body-one.panel-body.panel-body-main(style='padding:0;')
+                                div(style='padding:20px;width:100%;')
+                                    .col-md-12
+                                        .font-light
+                                            | Already have a trendGit Advertiser Account?
+                                            a(href='#') Click here to login
+                                            | .
+                                        br
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='username')
+                                                    | Account Username
+                                                    br
+                                                .font-light
+                                                    | This is what will be shown on your advertisement posts.  Pick a username that is appropriate for your organization
+                                            .col-sm-6
+                                                input#username.feedback-input(type='text', name='username', value='')
+                                        .form-group.row
+                                            .col-sm-4
+                                                span(style='font-weight:700;')
+                                                    | Organization Type
+                                                    br
+                                                .font-light Please choose the type of organization that best describes you.
+                                            .col-sm-6(style='margin-bottom:10px;padding-left:30px;')
+                                                label.radio.inline(for='type-0', style='font-weight:normal')
+                                                    input#type-0(type='radio', name='type', value='individual', checked='checked')
+                                                    | Individual
+                                                label.radio.inline(for='type-1', style='font-weight:normal')
+                                                    input#type-1(type='radio', name='type', value='business')
+                                                    | Business
+                                                label.radio.inline(for='type-2', style='font-weight:normal')
+                                                    input#type-2(type='radio', name='type', value='nonprofit')
+                                                    | Nonprofit
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='name') Account Email
+                                                .font-light
+                                                    | We will use this email to contact you about the status of your account and for your login.
+                                            .col-sm-6
+                                                input#email.feedback-input(type='email', name='email', value='')
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='password') Account Password
+                                                .font-light Please make it secure!
+                                            .col-sm-6
+                                                input#password.feedback-input(type='password', name='password', value='')
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='confirm-password') Confirm Password
+                                                .font-light Please confirm your password.
+                                            .col-sm-6
+                                                input#confirm-password.feedback-input(type='password', name='confirm-password', value='')
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label(for='humancheck') Humanity Check
+                                                br
+                                                .font-light You never know...
+                                            .col-sm-6(style='padding-left:30px')
+                                                label.radio.inline(for='humancheck-0')
+                                                    input#humancheck-0(type='radio', name='humancheck', value='robot', checked='checked')
+                                                    | I'm a Robot
+                                                label.radio.inline(for='humancheck-1')
+                                                    input#humancheck-1(type='radio', name='humancheck', value='human')
+                                                    | I'm Human
+                                        button.btn.btn-primary.pull-right.btn-save.next-section(type='button', style='margin-bottom:10px') Save and Continue
+                        #business-info.panel.panel-default
+                            .panel-heading
+                                h4
+                                    | Organization Information
+                                    span#body-two-control.caret.minimize
+                            #body-two.panel-body.panel-body-main(style='padding:0;')
+                                div(style='padding:7px;width:100%;')
+                                    .col-md-12
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='business-name')
+                                                    | Name of your Organization
+                                                    br
+                                                .font-light What is the full name of your organization?
+                                            .col-sm-6
+                                                input#business-name.feedback-input(type='text', name='business-name', value='')
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='rep-name')
+                                                    | What's your name?
+                                                    br
+                                                .font-light Who is filling out this form for your organization?
+                                            .col-sm-6
+                                                input#rep-name.feedback-input(type='text', name='rep-name', value='')
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='rep-name')
+                                                    | Where are you located?
+                                                    br
+                                                .font-light What is your street address.  Please include any apt / suite numbers
+                                            .col-sm-6
+                                                input#business-address-1.feedback-input(type='text', name='business-address-1', value='', placeholder='Address Line 1')
+                                                input#business-address-2.feedback-input(type='text', name='business-address-2', value='', placeholder='Address Line 2')
+                                                input#business-address-city.feedback-input(type='text', name='business-address-city', value='', placeholder='City')
+                                                select
+                                                    option(value='AL') Alabama
+                                                    option(value='AK') Alaska
+                                                    option(value='AZ') Arizona
+                                                    option(value='AR') Arkansas
+                                                    option(value='CA') California
+                                                    option(value='CO') Colorado
+                                                    option(value='CT') Connecticut
+                                                    option(value='DE') Delaware
+                                                    option(value='DC') District Of Columbia
+                                                    option(value='FL') Florida
+                                                    option(value='GA') Georgia
+                                                    option(value='HI') Hawaii
+                                                    option(value='ID') Idaho
+                                                    option(value='IL') Illinois
+                                                    option(value='IN') Indiana
+                                                    option(value='IA') Iowa
+                                                    option(value='KS') Kansas
+                                                    option(value='KY') Kentucky
+                                                    option(value='LA') Louisiana
+                                                    option(value='ME') Maine
+                                                    option(value='MD') Maryland
+                                                    option(value='MA') Massachusetts
+                                                    option(value='MI') Michigan
+                                                    option(value='MN') Minnesota
+                                                    option(value='MS') Mississippi
+                                                    option(value='MO') Missouri
+                                                    option(value='MT') Montana
+                                                    option(value='NE') Nebraska
+                                                    option(value='NV') Nevada
+                                                    option(value='NH') New Hampshire
+                                                    option(value='NJ') New Jersey
+                                                    option(value='NM') New Mexico
+                                                    option(value='NY') New York
+                                                    option(value='NC') North Carolina
+                                                    option(value='ND') North Dakota
+                                                    option(value='OH') Ohio
+                                                    option(value='OK') Oklahoma
+                                                    option(value='OR') Oregon
+                                                    option(value='PA') Pennsylvania
+                                                    option(value='RI') Rhode Island
+                                                    option(value='SC') South Carolina
+                                                    option(value='SD') South Dakota
+                                                    option(value='TN') Tennessee
+                                                    option(value='TX') Texas
+                                                    option(value='UT') Utah
+                                                    option(value='VT') Vermont
+                                                    option(value='VA') Virginia
+                                                    option(value='WA') Washington
+                                                    option(value='WV') West Virginia
+                                                    option(value='WI') Wisconsin
+                                                    option(value='WY') Wyoming
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='business-address-web')
+                                                    | Organization Website
+                                                    br
+                                                .font-light Does your organization have a website?  If so, please list its full URL here
+                                            .col-sm-6
+                                                input#business-address-web.feedback-input(type='text', name='business-address-web', value='', placeholder='http://www.trendgit.com')
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='business-size')
+                                                    | Organization Size
+                                                    br
+                                                .font-light How many people does your organization employ?
+                                            .col-sm-6
+                                                select#business-size(type='text', name='business-size')
+                                                    option(value='extra-small') < 5 employees
+                                                    option(value='small') 6 - 50 employees
+                                                    option(value='medium') 51 - 100 employees
+                                                    option(value='large') 101 - 1,000 employees
+                                                    option(value='extra-large') > 1,000 employees
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='business-size')
+                                                    | Organization Hours
+                                                    br
+                                                .font-light
+                                                    | When can people expect to either patronize your business or organization or when to contact you.
+                                            .col-sm-6.top
+                                                .row
+                                                    .col-sm-4
+                                                        input#hours-sunday(type='checkbox', name='hours-sunday', value='sunday')
+                                                        label.control-label(for='') Sunday
+                                                    .col-sm-6
+                                                        input.feedback-input-no-margin.hours(type='text')
+                                                .row
+                                                    .col-sm-4
+                                                        input#hours-sunday(type='checkbox', name='hours-sunday', value='sunday')
+                                                        label.control-label(for='') Monday
+                                                    .col-sm-6
+                                                        input.feedback-input-no-margin.hours(type='text')
+                                                .row
+                                                    .col-sm-4
+                                                        input#hours-sunday(type='checkbox', name='hours-sunday', value='sunday')
+                                                        label.control-label(for='') Tuesday
+                                                    .col-sm-6
+                                                        input.feedback-input-no-margin.hours(type='text')
+                                                .row
+                                                    .col-sm-4
+                                                        input#hours-sunday(type='checkbox', name='hours-sunday', value='sunday')
+                                                        label.control-label(for='') Wednesday
+                                                    .col-sm-6
+                                                        input.feedback-input-no-margin.hours(type='text')
+                                                .row
+                                                    .col-sm-4
+                                                        input#hours-sunday(type='checkbox', name='hours-sunday', value='sunday')
+                                                        label.control-label(for='') Thursday
+                                                    .col-sm-6
+                                                        input.feedback-input-no-margin.hours(type='text')
+                                                .row
+                                                    .col-sm-4
+                                                        input#hours-sunday(type='checkbox', name='hours-sunday', value='sunday')
+                                                        label.control-label(for='') Friday
+                                                    .col-sm-6
+                                                        input.feedback-input-no-margin.hours(type='text')
+                                                .row
+                                                    .col-sm-4
+                                                        input#hours-sunday(type='checkbox', name='hours-sunday', value='sunday')
+                                                        label.control-label(for='') Saturday
+                                                    .col-sm-6
+                                                        input.feedback-input-no-margin.hours(type='text')
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='business-address-web')
+                                                    | Organization Industries
+                                                    br
+                                                .font-light Of the following industries, which best describes your organization?
+                                            .col-sm-6
+                                                select#industry-type
+                                                    option(value='Agriculture and Food Service') Agriculture and Food Service
+                                                    option(value='Architecture / Construction') Architecture / Construction
+                                                    option(value='Arts and Artists') Arts and Artists
+                                                    option(value='Beauty and Personal Care') Beauty and Personal Care
+                                                    option(value='Business and Finance') Business and Finance
+                                                    option(value='Computers and Electronics') Computers and Electronics
+                                                    option(value='Creative Services/Agency') Creative Services/Agency
+                                                    option(value='Education and Training') Education and Training
+                                                    option(value='Entertainment and Events') Entertainment and Events
+                                                    option(value='Gambling') Gambling
+                                                    option(value='Gaming') Gaming
+                                                    option(value='Government') Government
+                                                    option(value='Health and Fitness') Health and Fitness
+                                                    option(value='Hobbies') Hobbies
+                                                    option(value='Home and Garden') Home and Garden
+                                                    option(value='Insurance') Insurance
+                                                    option(value='Legal') Legal
+                                                    option(value='Manufacturing') Manufacturing
+                                                    option(value='Marketing and Advertising') Marketing and Advertising
+                                                    option(value='Media and Publishing') Media and Publishing
+                                                    option(value='Medical / Healthcare') Medical / Healthcare
+                                                    option(value='Music / Musicians') Music / Musicians
+                                                    option(value='Photo and Video') Photo and Video
+                                                    option(value='Professional Services') Professional Services
+                                                    option(value='Politics') Politics
+                                                    option(value='Real Estate') Real Estate
+                                                    option(value='Religion') Religion
+                                                    option(value='Restaurant') Restaurant
+                                                    option(value='Retail') Retail
+                                                    option(value='Sports') Sports
+                                                    option(value='Travel') Travel
+                                                    option(value='Other') Other
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='business-summary')
+                                                    | Organization Summary
+                                                    br
+                                                .font-light Can you describe your organization for any visitor who wishes to learn more?
+                                            .col-sm-6
+                                                textarea#feedback.feedback-input(rows='4', name='message')
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='business-picture')
+                                                    | Organization Picture
+                                                    br
+                                                .font-light
+                                                    | Please upload a picture of your organization, whether it be an image of your storefront, your logo, or your product.
+                                            .col-sm-6
+                                                #crop-img-holder
+                                                    img.temp-img(src="' . $picPath . '")
+                                                br
+                                                label.btn.btn-primary.file-upload(for='fileToUpload')
+                                                    i.fa.fa-cloud-upload
+                                                    |  Choose a new picture
+                                                input#fileToUpload(type='file', name='fileToUpload')
+                                        button.btn.btn-primary.pull-right.next-section(type='button', style='margin-bottom:10px') Save and Continue
+                        #advertisement-info.panel.panel-default
+                            .panel-heading
+                                h4
+                                    | Advertisement Information
+                                    span#body-three-control.caret.minimize
+                            #body-three.panel-body.panel-body-main(style='padding:0;')
+                                div(style='padding:7px;width:100%;')
+                                    .col-md-12
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='ad-package')
+                                                    | Ad Package
+                                                    br
+                                                .font-light
+                                                    | Which advertisement package do you want to use? See
+                                                    a#modal-opener(href='#') here
+                                                    |  for more information about our advertisement packages
+                                            .col-sm-6
+                                                select#ad-package
+                                                    option(value='default') Please Choose an Option
+                                                    option(value='basic') Basic
+                                                    option(value='advanced') Advanced
+                                                    option(value='powerful') Powerful
+                                                    option(value='omniscent') Omniscent
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='rep-name')
+                                                    | Ad Subject
+                                                    br
+                                                .font-light What is this advertisement trying to sell?
+                                            .col-sm-6
+                                                select#ad-subject.option-dependent-selector
+                                                    option(value='default') Please Choose an Option
+                                                    option(value='product') A Product
+                                                    option(value='service') A Service
+                                                    option(value='business') My Business in General
+                                                    option(value='psa') A Public Service Announcement
+                                                    option(value='other') Other
+                                        #product-info.option-dependent.ad-subject(style='margin-bottom:7px')
+                                            .form-group.row
+                                                .col-sm-4
+                                                    label.control-label.feedback-label(for='product-name')
+                                                        | Product Name
+                                                        br
+                                                    .font-light What is the name of the product that you are trying to sell?
+                                                .col-sm-6
+                                                    input#product-name.feedback-input(type='text', name='product-name', value='', placeholder='')
+                                            .form-group.row
+                                                .col-sm-4
+                                                    label.control-label.feedback-label(for='product-description')
+                                                        | Product Description
+                                                        br
+                                                    .font-light Please give a brief description of your product in 100 - 200 characters.
+                                                .col-sm-6
+                                                    textarea#feedback.feedback-input(rows='4', name='message')
+                                            .form-group.row
+                                                .col-sm-4
+                                                    label.control-label.feedback-label(for='product-keyword')
+                                                        | Advertisement Keywords
+                                                        br
+                                                    .font-light
+                                                        | Please choose up to
+                                                        span#limit(style='font-weight:bold;') 10
+                                                        |  keywords.  Type keywords in the text box and seperate them with commas (,). For tips on how to choose keywords for your advertisement and why we need keywords, click
+                                                        a(href='#') here
+                                                .col-sm-6
+                                                    textarea#feedback.feedback-input(rows='4', name='message')
+                                            .form-group.row
+                                                .col-sm-4
+                                                    label.control-label.feedback-label(for='product-audience')
+                                                        | Target Audience
+                                                        br
+                                                    .font-light
+                                                        | Please describe the type of people who would most benefit from this advertisement with reference to gender, age, occupation or any other special circumstances
+                                                .col-sm-6
+                                                    textarea#product-audience.feedback-input(rows='4', name='message')
+                                            .form-group.row
+                                                .col-sm-4
+                                                    label.control-label.feedback-label(for='product-audience')
+                                                        | Special Additions
+                                                        br
+                                                    .font-light
+                                                        | Often advertisers will include a special deal or coupon to their advertisement, which will be personalized to the given user upon seeing the ad.  Would you liek to add a specila deal to your advertisement?  This section is optional.
+                                                .col-sm-6
+                                                    textarea#product-audience.feedback-input(rows='4', name='message')
+                                            .form-group.row
+                                                .col-sm-4
+                                                    label.control-label.feedback-label(for='product-location')
+                                                        | Advertisement Location
+                                                        br
+                                                    .font-light
+                                                        | Where is this product being sold? If it is the same as your organization's address, you can just leave this section blank.
+                                                .col-sm-6
+                                                    input#product-address-1.feedback-input(type='text', name='business-address-1', value='', placeholder='Address Line 1')
+                                                    input#product-address-2.feedback-input(type='text', name='business-address-2', value='', placeholder='Address Line 2')
+                                                    input#product-address-city.feedback-input(type='text', name='business-address-city', value='', placeholder='City')
+                                                    select#product-address-state
+                                                        option(value='AL') Alabama
+                                                        option(value='AK') Alaska
+                                                        option(value='AZ') Arizona
+                                                        option(value='AR') Arkansas
+                                                        option(value='CA') California
+                                                        option(value='CO') Colorado
+                                                        option(value='CT') Connecticut
+                                                        option(value='DE') Delaware
+                                                        option(value='DC') District Of Columbia
+                                                        option(value='FL') Florida
+                                                        option(value='GA') Georgia
+                                                        option(value='HI') Hawaii
+                                                        option(value='ID') Idaho
+                                                        option(value='IL') Illinois
+                                                        option(value='IN') Indiana
+                                                        option(value='IA') Iowa
+                                                        option(value='KS') Kansas
+                                                        option(value='KY') Kentucky
+                                                        option(value='LA') Louisiana
+                                                        option(value='ME') Maine
+                                                        option(value='MD') Maryland
+                                                        option(value='MA') Massachusetts
+                                                        option(value='MI') Michigan
+                                                        option(value='MN') Minnesota
+                                                        option(value='MS') Mississippi
+                                                        option(value='MO') Missouri
+                                                        option(value='MT') Montana
+                                                        option(value='NE') Nebraska
+                                                        option(value='NV') Nevada
+                                                        option(value='NH') New Hampshire
+                                                        option(value='NJ') New Jersey
+                                                        option(value='NM') New Mexico
+                                                        option(value='NY') New York
+                                                        option(value='NC') North Carolina
+                                                        option(value='ND') North Dakota
+                                                        option(value='OH') Ohio
+                                                        option(value='OK') Oklahoma
+                                                        option(value='OR') Oregon
+                                                        option(value='PA') Pennsylvania
+                                                        option(value='RI') Rhode Island
+                                                        option(value='SC') South Carolina
+                                                        option(value='SD') South Dakota
+                                                        option(value='TN') Tennessee
+                                                        option(value='TX') Texas
+                                                        option(value='UT') Utah
+                                                        option(value='VT') Vermont
+                                                        option(value='VA') Virginia
+                                                        option(value='WA') Washington
+                                                        option(value='WV') West Virginia
+                                                        option(value='WI') Wisconsin
+                                                        option(value='WY') Wyoming
+                                        #service-info.option-dependent.ad-subject(style='margin-bottom:7px')
+                                            .form-group.row
+                                                .col-sm-4
+                                                    label.control-label.feedback-label(for='product-name')
+                                                        | Service Name
+                                                        br
+                                                    .font-light What is the name of the service that you are trying to sell?
+                                                .col-sm-6
+                                                    input#service-name.feedback-input(type='text', name='product-name', value='', placeholder='')
+                                            .form-group.row
+                                                .col-sm-4
+                                                    label.control-label.feedback-label(for='product-description')
+                                                        | Service Description
+                                                        br
+                                                    .font-light Please give a brief description of your service in 100 - 200 characters.
+                                                .col-sm-6
+                                                    textarea#feedback.feedback-input(rows='4', name='message')
+                                            .form-group.row
+                                                .col-sm-4
+                                                    label.control-label.feedback-label(for='product-description')
+                                                        | Service Type
+                                                        br
+                                                    .font-light From the following list, please choose a category that best fits your service.
+                                                .col-sm-6
+                                                    select#service-type
+                                                        option(value='Agriculture and Food Service') Agriculture and Food Service
+                                                        option(value='Architecture / Construction') Architecture / Construction
+                                                        option(value='Arts and Artists') Arts and Artists
+                                                        option(value='Beauty and Personal Care') Beauty and Personal Care
+                                                        option(value='Business and Finance') Business and Finance
+                                                        option(value='Computers and Electronics') Computers and Electronics
+                                                        option(value='Creative Services/Agency') Creative Services/Agency
+                                                        option(value='Education and Training') Education and Training
+                                                        option(value='Entertainment and Events') Entertainment and Events
+                                                        option(value='Gambling') Gambling
+                                                        option(value='Gaming') Gaming
+                                                        option(value='Government') Government
+                                                        option(value='Health and Fitness') Health and Fitness
+                                                        option(value='Hobbies') Hobbies
+                                                        option(value='Home and Garden') Home and Garden
+                                                        option(value='Insurance') Insurance
+                                                        option(value='Legal') Legal
+                                                        option(value='Manufacturing') Manufacturing
+                                                        option(value='Marketing and Advertising') Marketing and Advertising
+                                                        option(value='Media and Publishing') Media and Publishing
+                                                        option(value='Medical / Healthcare') Medical / Healthcare
+                                                        option(value='Music / Musicians') Music / Musicians
+                                                        option(value='Photo and Video') Photo and Video
+                                                        option(value='Professional Services') Professional Services
+                                                        option(value='Politics') Politics
+                                                        option(value='Real Estate') Real Estate
+                                                        option(value='Religion') Religion
+                                                        option(value='Restaurant') Restaurant
+                                                        option(value='Retail') Retail
+                                                        option(value='Sports') Sports
+                                                        option(value='Travel') Travel
+                                                        option(value='Other') Other
+                                            .form-group.row
+                                                .col-sm-4
+                                                    label.control-label.feedback-label(for='product-keyword')
+                                                        | Advertisement Keywords
+                                                        br
+                                                    .font-light
+                                                        | Please choose up to
+                                                        span#limit(style='font-weight:bold;') 10
+                                                        |  keywords.  Type keywords in the text box and seperate them with commas (,). For tips on how to choose keywords for your advertisement and why we need keywords, click
+                                                        a(href='#') here
+                                                .col-sm-6
+                                                    textarea#product-keyword.feedback-input(rows='4', name='message')
+                                            .form-group.row
+                                                .col-sm-4
+                                                    label.control-label.feedback-label(for='product-audience')
+                                                        | Target Audience
+                                                        br
+                                                    .font-light
+                                                        | Please describe the type of people who would most benefit from this advertisement with reference to gender, age, occupation or any other special circumstances
+                                                .col-sm-6
+                                                    textarea#product-audience.feedback-input(rows='4', name='message')
+                                            .form-group.row
+                                                .col-sm-4
+                                                    label.control-label.feedback-label(for='product-location')
+                                                        | Advertisement Location
+                                                        br
+                                                    .font-light
+                                                        | Where is this product being sold? If it is the same as your organization's address, you can just leave this section blank.
+                                                .col-sm-6
+                                                    input#product-address-1.feedback-input(type='text', name='business-address-1', value='', placeholder='Address Line 1')
+                                                    input#product-address-2.feedback-input(type='text', name='business-address-2', value='', placeholder='Address Line 2')
+                                                    input#product-address-city.feedback-input(type='text', name='business-address-city', value='', placeholder='City')
+                                                    select#product-address-state
+                                                        option(value='AL') Alabama
+                                                        option(value='AK') Alaska
+                                                        option(value='AZ') Arizona
+                                                        option(value='AR') Arkansas
+                                                        option(value='CA') California
+                                                        option(value='CO') Colorado
+                                                        option(value='CT') Connecticut
+                                                        option(value='DE') Delaware
+                                                        option(value='DC') District Of Columbia
+                                                        option(value='FL') Florida
+                                                        option(value='GA') Georgia
+                                                        option(value='HI') Hawaii
+                                                        option(value='ID') Idaho
+                                                        option(value='IL') Illinois
+                                                        option(value='IN') Indiana
+                                                        option(value='IA') Iowa
+                                                        option(value='KS') Kansas
+                                                        option(value='KY') Kentucky
+                                                        option(value='LA') Louisiana
+                                                        option(value='ME') Maine
+                                                        option(value='MD') Maryland
+                                                        option(value='MA') Massachusetts
+                                                        option(value='MI') Michigan
+                                                        option(value='MN') Minnesota
+                                                        option(value='MS') Mississippi
+                                                        option(value='MO') Missouri
+                                                        option(value='MT') Montana
+                                                        option(value='NE') Nebraska
+                                                        option(value='NV') Nevada
+                                                        option(value='NH') New Hampshire
+                                                        option(value='NJ') New Jersey
+                                                        option(value='NM') New Mexico
+                                                        option(value='NY') New York
+                                                        option(value='NC') North Carolina
+                                                        option(value='ND') North Dakota
+                                                        option(value='OH') Ohio
+                                                        option(value='OK') Oklahoma
+                                                        option(value='OR') Oregon
+                                                        option(value='PA') Pennsylvania
+                                                        option(value='RI') Rhode Island
+                                                        option(value='SC') South Carolina
+                                                        option(value='SD') South Dakota
+                                                        option(value='TN') Tennessee
+                                                        option(value='TX') Texas
+                                                        option(value='UT') Utah
+                                                        option(value='VT') Vermont
+                                                        option(value='VA') Virginia
+                                                        option(value='WA') Washington
+                                                        option(value='WV') West Virginia
+                                                        option(value='WI') Wisconsin
+                                                        option(value='WY') Wyoming
+                                        #business-info.option-dependent.ad-subject
+                                        #public-service-announcement-info.option-dependent.ad-subject
+                                        button.btn.btn-primary.pull-right.next-section(type='button', style='margin-bottom:10px') Save and Continue
+                        #billing-info.panel.panel-default
+                            .panel-heading
+                                h4
+                                    | Billing Information
+                                    span#body-four-control.caret.minimize
+                            #body-four.panel-body.panel-body-main(style='padding:0;')
+                                div(style='padding:7px;width:100%;height:300px')
+                                    .col-md-12
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='billing-name')
+                                                    | Contact Name
+                                                    br
+                                                .font-light
+                                                    | The name of the person responsible for billing (i.e. the person whose name is on the credit card).
+                                            .col-sm-6
+                                                input#billing-name.feedback-input(type='text', name='username', value='')
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='billing-address')
+                                                    | Billing Address
+                                                    br
+                                                .font-light
+                                                    | What is the address associated with your billing (i.e. address on fiel for a credit card, or address for payment by check)
+                                            .col-sm-6
+                                                input#business-address-1.feedback-input(type='text', name='business-address-1', value='', placeholder='Address Line 1')
+                                                input#business-address-2.feedback-input(type='text', name='business-address-2', value='', placeholder='Address Line 2')
+                                                input#business-address-city.feedback-input(type='text', name='business-address-city', value='', placeholder='City')
+                                                input#business-address-city.feedback-input(type='text', name='business-address-city', value='', placeholder='Zip-Code')
+                                                select
+                                                    option(value='AL') Alabama
+                                                    option(value='AK') Alaska
+                                                    option(value='AZ') Arizona
+                                                    option(value='AR') Arkansas
+                                                    option(value='CA') California
+                                                    option(value='CO') Colorado
+                                                    option(value='CT') Connecticut
+                                                    option(value='DE') Delaware
+                                                    option(value='DC') District Of Columbia
+                                                    option(value='FL') Florida
+                                                    option(value='GA') Georgia
+                                                    option(value='HI') Hawaii
+                                                    option(value='ID') Idaho
+                                                    option(value='IL') Illinois
+                                                    option(value='IN') Indiana
+                                                    option(value='IA') Iowa
+                                                    option(value='KS') Kansas
+                                                    option(value='KY') Kentucky
+                                                    option(value='LA') Louisiana
+                                                    option(value='ME') Maine
+                                                    option(value='MD') Maryland
+                                                    option(value='MA') Massachusetts
+                                                    option(value='MI') Michigan
+                                                    option(value='MN') Minnesota
+                                                    option(value='MS') Mississippi
+                                                    option(value='MO') Missouri
+                                                    option(value='MT') Montana
+                                                    option(value='NE') Nebraska
+                                                    option(value='NV') Nevada
+                                                    option(value='NH') New Hampshire
+                                                    option(value='NJ') New Jersey
+                                                    option(value='NM') New Mexico
+                                                    option(value='NY') New York
+                                                    option(value='NC') North Carolina
+                                                    option(value='ND') North Dakota
+                                                    option(value='OH') Ohio
+                                                    option(value='OK') Oklahoma
+                                                    option(value='OR') Oregon
+                                                    option(value='PA') Pennsylvania
+                                                    option(value='RI') Rhode Island
+                                                    option(value='SC') South Carolina
+                                                    option(value='SD') South Dakota
+                                                    option(value='TN') Tennessee
+                                                    option(value='TX') Texas
+                                                    option(value='UT') Utah
+                                                    option(value='VT') Vermont
+                                                    option(value='VA') Virginia
+                                                    option(value='WA') Washington
+                                                    option(value='WV') West Virginia
+                                                    option(value='WI') Wisconsin
+                                                    option(value='WY') Wyoming
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='billing-address-2')
+                                                    | Method of Payment
+                                                    br
+                                                .font-light How you you like to submit your payment for your advertisement?
+                                            .col-sm-6
+                                                select
+                                                    option(value='default') Select One
+                                                    option(value='credit card') Credit Card
+                                                    option(value='check') Check
+                                                    option(value='deposit') Direct Deposit
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='billing-name')
+                                                    | Credit Card Provider
+                                                    br
+                                                .font-light
+                                                    img(src='/img/creditcard-icon.png', style='width:100px')
+                                            .col-sm-6
+                                                select
+                                                    option(value='default') Select One
+                                                    option(value='visa') Visa
+                                                    option(value='master') Mastercard
+                                                    option(value='american') American Express
+                                                    option(value='discover') Discover Card
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='billing-name')
+                                                    | Credit Card Number
+                                                    br
+                                                .font-light Please enter your credit card number into our secure server.
+                                            .col-sm-6
+                                                input#username.feedback-input(type='text', name='username', value='')
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='billing-name')
+                                                    | CSV Code
+                                                    br
+                                                .font-light CSV code on the back of your credit card
+                                            .col-sm-6
+                                                input#username.feedback-input(type='text', name='username', value='')
+                                        .form-group.row
+                                            .col-sm-4
+                                                label.control-label.feedback-label(for='billing-name')
+                                                    | Expiration
+                                                    br
+                                                .font-light Month of expiration (please enter in mm/yyyy)
+                                            .col-sm-6
+                                                input#username.feedback-input(type='text', name='username', value='', placeholder='mm/yyyy')
+                #right-div.col-md-3.right-div
+                    .panel.panel-default
+                        .panel-heading
+                            h4
+                                | Advertising FAQ
+                                span#pop-control.caret.minimize
+                        #pop.panel-body.panel-body-main(style='padding:0;')
+                            div(style='padding:7px;width:100%;')
+                                span#q1.question When do I get charged for my advertisement?
+                                span.answer.q1
+                                    | It depends.  You will not get charged for an advertisment that no one sees.  If our algorithms match your advertisement with a user, and populates their post with your ad, you will be charge a nominal fee (between $0.005 and $0.05).  If a user clicks on your ad or a link on your ad, you will be charged more (between $0.50 and $5.00).
+                                span#q2.question Who will see my advertisement?
+                                span.answer.q2
+                                    | Your advertisement will only be shown to those users who trend (behavior) best fits what you're advertising.  Whether it be that they live close to your store or are searching for a good hair salon, you will onyl be paired with users who will eb a good match for you, saving you money and increasing your success rate.
+                    #footer.panel.panel-default.footer
+                        .panel-body(style='text-align:center')
+                            p
+                                a(href='/about') About
+                                |  •
+                                a(href='#feedback-modal', data-toggle='modal') Feedback
+                                |  •
+                                a(href='#') Privacy & Terms
+                                |  •
+                            .font-light(style='text-align:center') trendGit © 2015
+        script(src='/js/promote.js')

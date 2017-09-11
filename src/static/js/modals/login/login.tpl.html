@@ -1,0 +1,101 @@
+<div tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" class="modal fade bs-modal-sm">
+    <div id="modal-login" class="modal-dialog">
+        <div class="modal-content" ng-init="tab=0"><br/>
+            <i class="fa fa-times" aria-hidden="true" ng-click="dismiss()"></i>
+            <div class="bs-example bs-example-tabs">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="{{tab==0 ? 'active' : ''}}" ng-click="tab=0">Sign In</li>
+                    <li class="{{tab==1 ? 'active' : ''}}" ng-click="tab=1">Register</li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div id="myTabContent" class="tab-content">
+                    <div id="" class="tab-pane fade active in" ng-show="tab==0">
+                        <form id="signin-form" class="form-horizontal">
+                            <fieldset>
+                                <h5 id="signup-success" style="display:none" class="green">Registration Completed! Please Login!</h5>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <input id="userid" required="" name="userid" type="email" class="form-control" ng-model="email"/>
+                                    </div>
+                                    <label for="userid" class="control-label">Email</label>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <input id="passwordinput" required="" name="passwordinput" type="password" class="form-control" ng-model="password"/>
+                                    </div>
+                                    <label for="passwordinput" class="control-label">Password</label>
+                                </div>
+                                <div class="control-group"><a href="#"><em>Forgot your password?</em></a></div>
+                                <div class="control-group">
+                                    <label class="control-label"></label>
+                                    <div class="controls">
+                                        <label for="rememberme-0" class="checkbox inline">
+                                            <input id="rememberme-0" type="checkbox" name="rememberme" value="Remember me"/> Remember me
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="signin" class="control-label"></label>
+                                    <div class="controls">
+                                        <button id="signin" name="signin" class="btn btn-success" ng-click="login()">Sign In</button>
+                                    </div>
+                                    <h5 id="signin-error" style="display:none" class="red">Sign In Failed</h5>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div id="signup" class="tab-pane fade" ng-show="tab==1">
+                        <form id="signup-form" class="form-horizontal">
+                            <fieldset>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <input id="email" type="email" placeholder="someone@example.com" required="" class="form-control"/>
+                                    </div>
+                                    <label for="email" class="control-label">Email</label>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <input id="username" type="text" placeholder="cooltrender011" required="" class="form-control"/>
+                                    </div>
+                                    <label for="username" class="control-label">Username</label>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <input id="password" type="password" required="" class="form-control"/>
+                                    </div>
+                                    <label for="password" class="control-label">Password</label>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <input id="reenterpassword" type="password" required="" class="form-control"/>
+                                    </div>
+                                    <label for="reenterpassword" class="control-label">Confirm Password</label>
+                                </div>
+                                <br/>
+                                <div class="control-group">
+                                    <label for="humancheck" class="control-label">Humanity Check:</label>
+                                    <div class="controls">
+                                        <label for="humancheck-0" class="radio inline">
+                                            <input id="humancheck-0" type="radio" name="humancheck" value="robot" checked="checked"/> I&apos;m a Robot
+                                        </label>
+                                        <label for="humancheck-1" class="radio inline">
+                                            <input id="humancheck-1" type="radio" name="humancheck" value="human"/> I&apos;m Human
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label for="confirmsignup" class="control-label"></label>
+                                    <div class="controls">
+                                        <button id="confirmsignup" name="confirmsignup" class="btn btn-success">Sign Up</button>
+                                    </div>
+                                    <h5 id="signup-error" style="display:none" class="red">Registration Failed</h5>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

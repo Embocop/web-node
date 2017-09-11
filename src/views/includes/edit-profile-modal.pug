@@ -1,0 +1,76 @@
+#edit-profile-modal.modal.fade(tabindex='-1', role='dialog')
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') &times;
+                h4.modal-title.text-center Edit Your trendGit Account
+            .bs-example.bs-example-tabs
+                ul#myTab.nav.nav-tabs
+                    li.active
+                        a#profile-avatar(href='#avatar-tab', data-toggle='tab') Avatar
+                    li
+                        a#profile-account(href='#account-tab', data-toggle='tab') Account
+                    li
+                        a#profile-account(href='#public-tab', data-toggle='tab') Public Information
+            form#update-profile
+                input#uid-number(type='text', name='uid', style='display:none;', value="'. $uid .'")
+                .modal-body
+                    #myTabContent.tab-content
+                        #avatar-tab.tab-pane.fade.active.in
+                            div(style='position:relative;left:25%;')
+                                #crop-img-holder
+                                    img.temp-img(src="' . $picPath . '")
+                                br
+                                label.btn.btn-primary.file-upload(for='fileToUpload')
+                                    i.fa.fa-cloud-upload
+                                    |  Choose a new picture
+                                |  
+                                input#fileToUpload(type='file', name='fileToUpload')
+                                |  
+                                input#crop-x(type='hidden', name='cropx')
+                                |  
+                                input#crop-y(type='hidden', name='cropy')
+                                |  
+                                input#crop-width(type='hidden', name='cropwidth')
+                                |  
+                                input#crop-height(type='hidden', name='cropheight')
+                                |  &nbsp;
+                                span#upload-file-info.label.label-info
+                            |  
+                            input.btn.btn-primary.btn-block(type='submit', value='Update', style='background-color:#399FFF; border-color:#399FFF')
+                        #account-tab.tab-pane.fade.in
+                            div(style='position:relative;')
+                                .form-group
+                                    label(for='password') Email
+                                    |  
+                                    input#email-address.form-control(type='email', name='email', placeholder='Email', value="'. $email .'", readonly='')
+                                    .form-group.has-feedback
+                                        label(for='password') Current Password
+                                        |  
+                                        input#current-password.form-control(type='password', name='password', placeholder='Password')
+                                        i#current-password-check.glyphicon.form-control-feedback
+                                    .form-group.has-feedback
+                                        label(for='password') New Password
+                                        |  
+                                        input#edit-password.form-control(type='password', name='edit-password', placeholder='New Password')
+                                        i#edit-password-check.glyphicon.form-control-feedback
+                                    .form-group.has-feedback
+                                        label(for='password') Confirm New Password
+                                        |  
+                                        input#edit-password-confirm.form-control(type='password', name='edit-password-confirm', placeholder='Confirm Password')
+                                        i#edit-password-check2.glyphicon.form-control-feedback
+                                    |  
+                                    input.btn.btn-primary.btn-block(type='submit', value='Update', style='background-color:#399FFF; border-color:#399FFF')
+                        #public-tab.tab-pane.fade.in
+                            div(style='position:relative;')
+                                .form-group
+                                    label(for='name') Name
+                                    |  
+                                    input#edit-name.form-control(type='name', name='edit-name', placeholder='Your Real Name', value="' . $name . '")
+                                .form-group
+                                    label(for='bio') Bio:
+                                    |  
+                                    textarea#bio.form-control.outline-force(name='bio', rows='5', placeholder='Hello World!') &apos; . $bio . &apos;
+                                |  
+                                input.btn.btn-primary.btn-block(type='submit', value='Update', style='background-color:#399FFF; border-color:#399FFF')

@@ -1,0 +1,11 @@
+<div id="nearby" class="widget panel-default popular-users">
+    <div class="widget-heading">
+        Trending Nearby
+    </div>
+    <div id="pop" style="padding:0;" class="widget-body panel-body-main">
+        <div class="entry hover {{activeNearby==$index ? 'active' : ''}}" ng-click="activeNearby!=$index && filter(x.attributes.city, $index)" ng-repeat="x in nearby">
+            <span style="margin: 0px">{{::x.attributes.city}}, {{::x.attributes.country}}</span>
+            &nbsp;
+        </div>
+    </div>
+</div>

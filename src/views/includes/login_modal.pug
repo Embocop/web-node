@@ -1,0 +1,96 @@
+#myModal.modal.fade.bs-modal-sm(tabindex='-1', role='dialog', aria-labelledby='mySmallModalLabel', aria-hidden='true')
+    #modal-login.modal-dialog
+        .modal-content
+            br
+            .bs-example.bs-example-tabs
+                ul#myTab.nav.nav-tabs
+                    li.active
+                        a#nav-signin(href='#signin', data-toggle='tab') Sign In
+                    li
+                        a#nav-signup(href='#signup', data-toggle='tab') Register
+            .modal-body
+                #myTabContent.tab-content
+                    #signin.tab-pane.fade.active.in
+                        form#signin-form.form-horizontal
+                            fieldset
+                                h5#signup-success.green(style='display:none') Registration Completed! Please Login!
+                                .control-group
+                                    label.control-label(for='userid') Email:
+                                    .controls
+                                        input#userid.form-control(required='', name='userid', type='email')
+                                .control-group
+                                    label.control-label(for='passwordinput') Password:
+                                    .controls
+                                        input#passwordinput.form-control(required='', name='passwordinput', type='password')
+                                .control-group
+                                    a(href='#')
+                                        em Forgot your password?
+                                .control-group
+                                    label.control-label(for='rememberme')
+                                    .controls
+                                        label.checkbox.inline(for='rememberme-0')
+                                            input#rememberme-0(type='checkbox', name='rememberme', value='Remember me')
+                                            |  Remember me
+                                .control-group
+                                    label.control-label(for='signin')
+                                    .controls
+                                        button#signin.btn.btn-success(name='signin', style='background-color:#399FFF;border-color:#399FFF') Sign In
+                                    h5#signin-error.red(style='display:none') Sign In Failed
+                    #signup.tab-pane.fade
+                        form#signup-form.form-horizontal
+                            fieldset
+                                .form-group(style='padding-left:10px;padding-right:10px')
+                                    label.control-label Email:
+                                    table.modal-table
+                                        col(width='95%')
+                                        tr
+                                            td
+                                                input#email.form-control(type='email', placeholder='someone@example.com', required='')
+                                            td
+                                                i#email-check.glyphicon(data-toggle='tooltip', data-placement='right')
+                                .form-group(style='padding-left:10px;padding-right:10px')
+                                    label.control-label Username:
+                                    table.modal-table
+                                        col(width='95%')
+                                        tr
+                                            td
+                                                input#username.form-control(type='text', placeholder='cooltrender011', required='')
+                                            td
+                                                i#username-check.glyphicon(data-toggle='tooltip', data-placement='right')
+                                .form-group(style='padding-left:10px;padding-right:10px')
+                                    label.control-label Password:
+                                    table.modal-table
+                                        col(width='95%')
+                                        tr
+                                            td
+                                                input#password.form-control(type='password', required='')
+                                            td
+                                                i#password-check.glyphicon(data-toggle='tooltip', data-placement='right')
+                                .form-group(style='padding-left:10px;padding-right:10px')
+                                    label.control-label Confirm Password:
+                                    table.modal-table
+                                        col(width='95%')
+                                        tr
+                                            td
+                                                input#reenterpassword.form-control(type='password', required='')
+                                            td
+                                                i#password-check2.glyphicon(data-toggle='tooltip', data-placement='right')
+                                br
+                                .control-group
+                                    label.control-label(for='humancheck') Humanity Check:
+                                    .controls
+                                        label.radio.inline(for='humancheck-0')
+                                            input#humancheck-0(type='radio', name='humancheck', value='robot', checked='checked')
+                                            |  I&apos;m a Robot
+                                        |  
+                                        label.radio.inline(for='humancheck-1')
+                                            input#humancheck-1(type='radio', name='humancheck', value='human')
+                                            |  I&apos;m Human
+                                .control-group
+                                    label.control-label(for='confirmsignup')
+                                    .controls
+                                        button#confirmsignup.btn.btn-success(name='confirmsignup', style='background-color:#399FFF;border-color:#399FFF') Sign Up
+                                    h5#signup-error.red(style='display:none') Registration Failed
+            .modal-footer
+                center
+                    button.btn.btn-default(type='button', data-dismiss='modal') Close

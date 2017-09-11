@@ -1,0 +1,23 @@
+nav.navbar.navbar-default.navbar-fixed-top.filler(role="navigation")
+    div.navbar-header
+        img.logo.navbar-left(src= "/img/logo.png")
+        img.hint-bottom.hint(src = "/img/hint.png")
+        img.hint-side.hint(src = "/img/arrow.png")
+        form.navbar-search-form
+            button.btn.btn-default.dropdown-toggle.search-btn(data-toggle = "dropdown", type = "button", aria-haspopup="true", aria-expanded="false") Posts&nbsp;
+                b.caret
+            ul.dropdown-menu
+                li: a.active-filter(value="1", href="#") Posts
+                li: a(value="2", href="#") Category
+                li: a(value="3", href="#") Users
+                li: a(value="4", href="#") Keywords
+                li: a(value="5", href="#") Location
+            input#navbar-search(type="text", placeholder="Search for posts, places, and people...", class="form-control", size="50")
+            button.btn.btn-default.btn-search.search-btn(type = "submit")
+                span.glyphicon.glyphicon-search(aria-hidden="true")
+        div#right-buttons.right-buttons
+            button#login.btn.navbar-right.hvr-underline-from-center(href="#signin", data-toggle="modal", data-target=".bs-modal-sm", style="display:none;") Sign In | Register
+            button#profile-btn.btn.hvr-underline-from-center(style="display:none;", onclick="location.href='/profile';") Profile
+            button#home.btn.hvr-underline-from-center(style="display:none;", onclick="location.href='/';") Feed
+            button#logout.btn.hvr-underline-from-center(style="display:none;") Logout
+include login_modal.pug

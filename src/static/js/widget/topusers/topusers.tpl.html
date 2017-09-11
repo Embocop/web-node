@@ -1,0 +1,16 @@
+<div id="cool-kids" class="widget panel-default popular-users">
+    <div class="widget-heading">
+        Globally Trending Users
+    </div>
+    <div id="pop" style="padding:0;" class="widget-body panel-body-main">
+        <div class="entry" ng-repeat="x in tops">
+            <div class = "img-container">
+                <img ng-src = "/img/profile/{{::x.id}}.png" onerror="this.onerror=null;this.src='/img/profile/default.png'"/>
+            </div>
+            <div class="info">
+                <div>{{::x.attributes.name}}</div>
+                <div class="coolness">{{::x.attributes.username}}, {{::x.attributes.coolness}}</div>
+            </div>
+        </div>
+    </div>
+</div>
